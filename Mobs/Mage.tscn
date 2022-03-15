@@ -19,7 +19,7 @@ extents = Vector3( 0.647462, 1.46263, 0.484396 )
 [node name="Pivot" type="Spatial" parent="." index="0"]
 
 [node name="MeshInstance" type="MeshInstance" parent="Pivot" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0798956, 0 )
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
 mesh = ExtResource( 3 )
 material/0 = SubResource( 1 )
 material/1 = SubResource( 2 )

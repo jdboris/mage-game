@@ -4,7 +4,7 @@ export var mobPath: NodePath
 
 func _physics_process(delta: float) -> void:
 	if !mobPath: return
-	var mob = get_node(mobPath)
+	var mob: Mob = get_node(mobPath)
 	
 	var direction := Vector3.ZERO
 	if Input.is_action_pressed("move_right"):
@@ -19,6 +19,7 @@ func _physics_process(delta: float) -> void:
 
 	if direction != Vector3.ZERO:
 		direction = direction.normalized()
+		mob.look_model_at(direction)
 	
 	mob.velocity.x = direction.x * mob.speed
 	mob.velocity.z = direction.z * mob.speed
