@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "KinematicBody",
 "class": "Mob",
 "language": "GDScript",
-"path": "res://Mobs/Mob.gd"
+"path": "res://mobs/mob.gd"
 } ]
 _global_script_class_icons={
 "Mob": ""
@@ -21,7 +21,7 @@ _global_script_class_icons={
 [application]
 
 config/name="mage-game"
-run/main_scene="res://Levels/Level1.tscn"
+run/main_scene="res://levels/level_1.tscn"
 config/icon="res://icon.png"
 
 [global]

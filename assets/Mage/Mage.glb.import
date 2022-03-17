@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/Mage.glb-fb45d953187bb7ac27560122caac2224.scn"
+path="res://.import/mage.glb-223abe3c30b3ee64258432435affcb4c.scn"
 
 [deps]
 
-source_file="res://assets/Mage/Mage.glb"
-dest_files=[ "res://.import/Mage.glb-fb45d953187bb7ac27560122caac2224.scn" ]
+source_file="res://assets/mage/mage.glb"
+dest_files=[ "res://.import/mage.glb-223abe3c30b3ee64258432435affcb4c.scn" ]
 
 [params]
 

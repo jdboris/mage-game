@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/Wizard_Staff_Texture.png-47e8092a03e466d766e76018e64fa758.s3tc.stex"
-path.etc2="res://.import/Wizard_Staff_Texture.png-47e8092a03e466d766e76018e64fa758.etc2.stex"
+path.s3tc="res://.import/wizard_staff_texture.png-6292e736cca9ad2e159d90038fbb936c.s3tc.stex"
+path.etc2="res://.import/wizard_staff_texture.png-6292e736cca9ad2e159d90038fbb936c.etc2.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/Mage/Wizard_Staff_Texture.png"
-dest_files=[ "res://.import/Wizard_Staff_Texture.png-47e8092a03e466d766e76018e64fa758.s3tc.stex", "res://.import/Wizard_Staff_Texture.png-47e8092a03e466d766e76018e64fa758.etc2.stex" ]
+source_file="res://assets/mage/wizard_staff_texture.png"
+dest_files=[ "res://.import/wizard_staff_texture.png-6292e736cca9ad2e159d90038fbb936c.s3tc.stex", "res://.import/wizard_staff_texture.png-6292e736cca9ad2e159d90038fbb936c.etc2.stex" ]
 
 [params]
 
