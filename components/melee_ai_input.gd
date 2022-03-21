@@ -45,9 +45,6 @@ func _process(_delta: float):
 	var mage = (get_node("../../Mage") as KinematicBody)
 	
 	var distance = mob.global_transform.origin.distance_to(mage.global_transform.origin)
-	if distance < 8:
-		target = mage
-	elif distance > 14:
-		target = null
+	target = mage if distance < 8 else null if distance > 14 else target
 	
 	move_mob_towards_target(mob, target)

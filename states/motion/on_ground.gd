@@ -1,4 +1,4 @@
-extends "../motion.gd"
+extends "motion.gd"
 
 export var jump: NodePath
 
