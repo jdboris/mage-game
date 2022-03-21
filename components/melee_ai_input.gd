@@ -16,6 +16,10 @@ func new_action(name: String, is_pressed: bool = false, strength: float = 0.0) -
 	action.strength = strength
 	return action
 
+func press_actions(strengthsByName: Dictionary):
+	for name in strengthsByName:
+		press_action(name, strengthsByName[name])
+
 func press_action(action: String, strength: float):
 	actions[action].pressed = strength > 0
 	actions[action].strength = strength
@@ -31,14 +35,15 @@ func _process(_delta: float):
 	var mage = (get_node("../../Mage") as KinematicBody)
 	
 	var distance = mob.global_transform.origin.distance_to(mage.global_transform.origin)
-	if distance <= 8:
+	if distance < 8:
 		target = mage
 	elif distance > 14:
 		target = null
 	
 	var direction = mob.global_transform.origin.direction_to(target.global_transform.origin) if target else Vector3.ZERO
-	press_action("move_left", abs(direction.x) if direction.x < 0 else 0)
-	press_action("move_right", abs(direction.x) if direction.x > 0 else 0)
-	press_action("move_forward", abs(direction.z) if direction.z < 0 else 0)
-	press_action("move_back", abs(direction.z) if direction.z > 0 else 0)
-	
+	press_actions({
+		"move_left": abs(direction.x) if direction.x < 0 else 0,
+		"move_right": abs(direction.x) if direction.x > 0 else 0,
+		"move_forward": abs(direction.z) if direction.z < 0 else 0,
+		"move_back": abs(direction.z) if direction.z > 0 else 0
+	})
