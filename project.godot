@@ -9,13 +9,13 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "KinematicBody",
-"class": "Mob",
+"base": "Node",
+"class": "State",
 "language": "GDScript",
-"path": "res://mobs/mob.gd"
+"path": "res://components/state.gd"
 } ]
 _global_script_class_icons={
-"Mob": ""
+"State": ""
 }
 
 [application]
@@ -23,6 +23,10 @@ _global_script_class_icons={
 config/name="mage-game"
 run/main_scene="res://levels/level_1.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+Global="*res://global.gd"
 
 [global]
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://components/mob_controller.tscn" type="PackedScene" id=1]
+[ext_resource path="res://mobs/skeleton_warrior.tscn" type="PackedScene" id=1]
 [ext_resource path="res://mobs/mage.tscn" type="PackedScene" id=2]
 
 [sub_resource type="BoxShape" id=1]
@@ -12,6 +12,7 @@ size = Vector3( 60, 2, 60 )
 [node name="Main" type="Node"]
 
 [node name="Ground" type="StaticBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Ground"]
 shape = SubResource( 1 )
@@ -24,9 +25,6 @@ material/0 = null
 transform = Transform( 1, 0, 0, 0, 0.459301, 0.888281, 0, -0.888281, 0.459301, 0, 11, 0 )
 shadow_enabled = true
 
-[node name="Mage" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.208959, 1, -0.0992208 )
-
 [node name="CameraPivot" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.742829, 0.669481, 0, -0.669481, 0.742829, 0, 0, 0 )
 
@@ -36,5 +34,8 @@ projection = 1
 current = true
 size = 25.0
 
-[node name="MobController" parent="." instance=ExtResource( 1 )]
-mobPath = NodePath("../Mage")
+[node name="Mage" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.8013, 0, 0 )
+
+[node name="SkeletonWarrior" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.28442, 0, 0 )
