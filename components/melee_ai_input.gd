@@ -30,6 +30,16 @@ func get_action_strength(action: String):
 	else:
 		return 0
 
+func move_mob_towards_target(mob: KinematicBody, target: KinematicBody):
+	
+	var direction = mob.global_transform.origin.direction_to(target.global_transform.origin) if target else Vector3.ZERO
+	press_actions({
+		"move_left": abs(direction.x) if direction.x < 0 else 0,
+		"move_right": abs(direction.x) if direction.x > 0 else 0,
+		"move_forward": abs(direction.z) if direction.z < 0 else 0,
+		"move_back": abs(direction.z) if direction.z > 0 else 0
+	})
+
 func _process(_delta: float):
 	var mob = (owner as KinematicBody)
 	var mage = (get_node("../../Mage") as KinematicBody)
@@ -40,10 +50,4 @@ func _process(_delta: float):
 	elif distance > 14:
 		target = null
 	
-	var direction = mob.global_transform.origin.direction_to(target.global_transform.origin) if target else Vector3.ZERO
-	press_actions({
-		"move_left": abs(direction.x) if direction.x < 0 else 0,
-		"move_right": abs(direction.x) if direction.x > 0 else 0,
-		"move_forward": abs(direction.z) if direction.z < 0 else 0,
-		"move_back": abs(direction.z) if direction.z > 0 else 0
-	})
+	move_mob_towards_target(mob, target)
