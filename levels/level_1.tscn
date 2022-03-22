@@ -35,7 +35,6 @@ current = true
 size = 25.0
 
 [node name="Mage" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.8013, 0, 0 )
 
 [node name="SkeletonWarrior" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.28442, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12.9973, 0, 0 )
