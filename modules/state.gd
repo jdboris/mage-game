@@ -1,5 +1,4 @@
 extends Node
-class_name State
 
 # Base interface for all states: it doesn't do anything by itself,
 # but forces us to pass the right arguments to the methods below

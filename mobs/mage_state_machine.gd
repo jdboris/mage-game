@@ -1,4 +1,6 @@
-extends "res://components/state_machine.gd"
+extends "res://modules/state_machine.gd"
+
+#export var cast: NodePath
 
 enum {
 	FIRE,
@@ -8,11 +10,11 @@ enum {
 }
 
 var spells: = {
-	[FIRE]: "Explosion",
-	[WATER]: "Water Beam",
-	[AIR]: "Gust",
-	[EARTH]: "Boulder",
-	[FIRE, FIRE]: "Ignite"
+	[FIRE]: { "name": "Explosion", "damage": 10 },
+	[WATER]: { "name": "Water Beam", "damage": 10 },
+	[AIR]: { "name": "Gust", "damage": 10 },
+	[EARTH]: { "name": "Boulder", "damage": 10 },
+	[FIRE, FIRE]: { "name": "Ignite", "damage": 20 },
 }
 
 var rune_stack: = []
@@ -43,9 +45,10 @@ func _unhandled_input(event: InputEvent):
 		event.is_pressed():
 		
 		print("runes: ", rune_stack)
-		print(("Casting: " + spells[rune_stack]) if rune_stack in spells else "No spell.")
+		print(("Casting: " + spells[rune_stack].name) if rune_stack in spells else "No spell.")
 		if rune_stack in spells:
-			$"../../SkeletonWarrior/Health".value -= 10
+#			(get_node(animation_player) as AnimationPlayer).play(cast_animation)
+			$"../../SkeletonWarrior/Health".value -= spells[rune_stack].damage
 		
 		rune_stack = []
 

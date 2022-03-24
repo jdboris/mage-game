@@ -12,16 +12,10 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "PropertyNode",
 "language": "GDScript",
-"path": "res://components/property.gd"
-}, {
-"base": "Node",
-"class": "State",
-"language": "GDScript",
-"path": "res://components/state.gd"
+"path": "res://modules/property.gd"
 } ]
 _global_script_class_icons={
-"PropertyNode": "",
-"State": ""
+"PropertyNode": ""
 }
 
 [application]

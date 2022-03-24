@@ -5,7 +5,7 @@ signal state_changed(current_state)
 export var start_state: NodePath
 
 var states_stack := []
-var current_state: State = null
+var current_state = null
 var _active := false setget set_active
 
 export var _ai_input: NodePath setget _set_ai_input

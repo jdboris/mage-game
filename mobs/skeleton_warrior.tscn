@@ -4,9 +4,9 @@
 [ext_resource path="res://mobs/skeleton_warrior_state_machine.gd" type="Script" id=2]
 [ext_resource path="res://models/skeleton_warrior.tscn" type="PackedScene" id=3]
 [ext_resource path="res://states/motion/move.gd" type="Script" id=4]
-[ext_resource path="res://components/melee_ai_input.gd" type="Script" id=5]
-[ext_resource path="res://components/property.gd" type="Script" id=6]
-[ext_resource path="res://components/ui/mob_ui.tscn" type="PackedScene" id=7]
+[ext_resource path="res://modules/melee_ai_input.gd" type="Script" id=5]
+[ext_resource path="res://modules/property.gd" type="Script" id=6]
+[ext_resource path="res://modules/ui/mob_ui.tscn" type="PackedScene" id=7]
 
 [sub_resource type="BoxShape" id=3]
 extents = Vector3( 0.627, 1, 0.484 )
@@ -21,6 +21,14 @@ value = 100.0
 [node name="Pivot" type="Spatial" parent="."]
 
 [node name="character_skeleton_warrior" parent="Pivot" instance=ExtResource( 3 )]
+
+[node name="Skeleton" parent="Pivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/KayKit Animated Character" index="0"]
+bones/0/bound_children = [  ]
+bones/1/bound_children = [  ]
+bones/2/bound_children = [  ]
+bones/3/bound_children = [  ]
+bones/4/bound_children = [  ]
+bones/5/bound_children = [  ]
 
 [node name="Head" parent="Pivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/KayKit Animated Character/Skeleton" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.711598, 0 )

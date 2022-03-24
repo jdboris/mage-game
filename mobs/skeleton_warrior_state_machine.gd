@@ -1,4 +1,4 @@
-extends "res://components/state_machine.gd"
+extends "res://modules/state_machine.gd"
 
 func _change_state(state: NodePath):
 	if not _active:

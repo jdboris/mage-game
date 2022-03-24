@@ -1,4 +1,4 @@
-extends "res://components/state.gd"
+extends "res://modules/state.gd"
 
 export var dead: NodePath
 
