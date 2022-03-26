@@ -1,9 +1,9 @@
 extends "res://modules/state.gd"
 
 
-func enter():
+func enter(args := {}):
 	get_node(animation_player).play("Idle -loop")
 
 
 func _on_Sword_attack_finished():
-	emit_signal("finished", "previous")
+	emit_signal("finished", null, {})

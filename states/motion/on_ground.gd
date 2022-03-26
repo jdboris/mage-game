@@ -9,5 +9,5 @@ var velocity = Vector3()
 
 func handle_input(event: InputEvent):
 #	if event.is_action_pressed("jump"):
-#		emit_signal("finished", jump)
+#		emit_signal("finished", get_node(jump), {})
 	return .handle_input(event)

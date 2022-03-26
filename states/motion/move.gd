@@ -8,7 +8,7 @@ export(float) var max_walk_speed = 4
 export(float) var max_run_speed = 8
 
 
-func enter():
+func enter(args := {}):
 	speed = 0.0
 	velocity = Vector3()
 
@@ -25,7 +25,7 @@ func handle_input(event: InputEvent):
 func update(_delta):
 	var input_direction = get_input_direction()
 	if not input_direction:
-		emit_signal("finished", idle)
+		emit_signal("finished", get_node(idle), {})
 	update_look_direction(input_direction)
 	
 	speed = max_walk_speed

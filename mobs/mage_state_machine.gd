@@ -1,6 +1,6 @@
 extends "res://modules/state_machine.gd"
 
-#export var cast: NodePath
+export var cast: NodePath
 
 enum {
 	FIRE,
@@ -19,14 +19,14 @@ var spells: = {
 
 var rune_stack: = []
 
-func _change_state(state: NodePath):
+func _change_state(state: Node, args := {}):
 	if not _active:
 		return
 	# if state in [$Stagger, $Jump, $Attack]:
 	# 	states_stack.push_front(state)
 	# if state == $Jump.get_path() and current_state == $Move:
 	# 	$Jump.initialize($Move.speed, $Move.velocity)
-	._change_state(state)
+	._change_state(state, args)
 
 
 # NOTE: Only for handling input that can interrupt states (input that states don't handle)
@@ -43,13 +43,17 @@ func _unhandled_input(event: InputEvent):
 	elif event is InputEventMouseButton and \
 		event.button_index == BUTTON_LEFT and \
 		event.is_pressed():
+		var mouseEvent := (event as InputEventMouseButton)
 		
 		print("runes: ", rune_stack)
 		print(("Casting: " + spells[rune_stack].name) if rune_stack in spells else "No spell.")
+		print("pos: ", mouseEvent.global_position)
 		if rune_stack in spells:
+			_change_state(get_node(cast), {
+				"spell": spells[rune_stack], 
+				"targetPos": mouseEvent.global_position
+			})
 #			(get_node(animation_player) as AnimationPlayer).play(cast_animation)
-			$"../../SkeletonWarrior/Health".value -= spells[rune_stack].damage
+#			$"../../SkeletonWarrior/Health".value -= spells[rune_stack].damage
 		
 		rune_stack = []
-
-	

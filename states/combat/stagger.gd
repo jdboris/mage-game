@@ -6,10 +6,10 @@ extends "res://modules/state.gd"
 
 
 
-func enter():
+func enter(args := {}):
 	get_node(animation_player).play("stagger")
 
 
 func _on_animation_finished(anim_name: String):
 	assert(anim_name == "stagger")
-	emit_signal("finished", "previous")
+	emit_signal("finished", null, {})

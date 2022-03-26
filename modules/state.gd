@@ -11,11 +11,11 @@ export var animation_player: NodePath
 var Input
 
 # warning-ignore:unused_signal
-signal finished(next_state)
+signal finished(next_state, args)
 
 
 # Initialize the state. E.g. change the animation.
-func enter():
+func enter(args := {}):
 	pass
 
 

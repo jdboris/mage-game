@@ -44,7 +44,7 @@ func initialize(initial_state_path: NodePath):
 	set_active(true)
 	states_stack.push_front(get_node(initial_state_path))
 	current_state = states_stack[0]
-	current_state.enter()
+	current_state.enter({})
 	
 
 
@@ -71,20 +71,20 @@ func _on_animation_finished(anim_name: String):
 	current_state._on_animation_finished(anim_name)
 
 
-func _change_state(state: NodePath):
+func _change_state(state: Node, args := {}):
 	if not _active:
 		return
 	current_state.exit()
 
-	# NOTE: "previous" is reserved for returning to previous state
-	if state == "previous":
+	# NOTE: null is reserved for returning to previous state
+	if state == null:
 		states_stack.pop_front()
 	else:
-		states_stack[0] = current_state.get_node(state)
-		assert(states_stack[0], "Error: State ('" + state + "') not found in '" + get_path() + "'. Is it plugged in?")
+		states_stack[0] = state
+		assert(states_stack[0], "Error: State ('" + state.get_path() + "') not found in '" + get_path() + "'. Is it plugged in?")
 
 	current_state = states_stack[0]
 	emit_signal("state_changed", current_state.get_path())
 
-	if state != "previous":
-		current_state.enter()
+	if state != null:
+		current_state.enter(args)

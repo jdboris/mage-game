@@ -6,7 +6,7 @@ extends "res://modules/state.gd"
 
 func handle_input(_event: InputEvent):
 #	if event.is_action_pressed("simulate_damage"):
-#		emit_signal("finished", stagger)
+#		emit_signal("finished", get_node(stagger), {})
 	pass
 
 func get_input_direction():
