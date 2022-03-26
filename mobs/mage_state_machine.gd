@@ -22,9 +22,11 @@ var rune_stack: = []
 func _change_state(state: Node, args := {}):
 	if not _active:
 		return
+	if current_state in [$Cast] and not state in [$Idle]:
+		return
 	# if state in [$Stagger, $Jump, $Attack]:
 	# 	states_stack.push_front(state)
-	# if state == $Jump.get_path() and current_state == $Move:
+	# if state == $Jump and current_state == $Move:
 	# 	$Jump.initialize($Move.speed, $Move.velocity)
 	._change_state(state, args)
 
