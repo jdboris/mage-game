@@ -13,6 +13,7 @@ size = Vector3( 60, 2, 60 )
 
 [node name="Ground" type="StaticBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
+collision_layer = 2
 
 [node name="CollisionShape" type="CollisionShape" parent="Ground"]
 shape = SubResource( 1 )
