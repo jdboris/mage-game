@@ -4,9 +4,8 @@ export var idle: NodePath
 export var cast_animation: String
 
 func enter(args := {"spell": {}, "targetPos": Vector2.ZERO}):
-
 	# NOTE: Distance from the camera to the ground
-	var cameraZ = sin(Global.camera.translation.z)*20
+	var cameraZ = sin(Global.cameraPivot.rotation_degrees.x)*Global.camera.translation.z
 	var position = Global.camera.project_position(args.targetPos, cameraZ)
 	var direction = position - owner.translation
 	# NOTE: Ignore y-axis, keep character upright
