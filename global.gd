@@ -1,4 +1,4 @@
 extends Node
 
-func get_input():
-	return Input
+onready var camera: Camera = $"../Main/CameraPivot/Camera"
+

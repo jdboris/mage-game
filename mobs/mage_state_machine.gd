@@ -47,11 +47,11 @@ func _unhandled_input(event: InputEvent):
 		
 		print("runes: ", rune_stack)
 		print(("Casting: " + spells[rune_stack].name) if rune_stack in spells else "No spell.")
-		print("pos: ", mouseEvent.global_position)
+		print("pos: ", mouseEvent.position)
 		if rune_stack in spells:
 			_change_state(get_node(cast), {
 				"spell": spells[rune_stack], 
-				"targetPos": mouseEvent.global_position
+				"targetPos": mouseEvent.position
 			})
 #			(get_node(animation_player) as AnimationPlayer).play(cast_animation)
 #			$"../../SkeletonWarrior/Health".value -= spells[rune_stack].damage

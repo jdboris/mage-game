@@ -16,13 +16,6 @@ extents = Vector3( 0.626815, 1.463, 0.484 )
 [node name="Mage" parent="Pivot" instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 
-[node name="Skeleton" parent="Pivot/Mage/CharacterArmature" index="1"]
-bones/4/bound_children = [ NodePath("BoneAttachment5") ]
-bones/7/bound_children = [ NodePath("BoneAttachment") ]
-bones/9/bound_children = [ NodePath("BoneAttachment2") ]
-bones/17/bound_children = [ NodePath("BoneAttachment4") ]
-bones/22/bound_children = [ NodePath("BoneAttachment3") ]
-
 [node name="BoneAttachment" parent="Pivot/Mage/CharacterArmature/Skeleton" index="0"]
 transform = Transform( 0.997553, -0.0470551, 0.0517112, 0.0457877, 0.998628, 0.0254282, -0.0528366, -0.0229982, 0.998338, -0.0615501, 2.01491, 0.184872 )
 
