@@ -10,16 +10,11 @@ enum {
 }
 
 export var spells: = {
-	[FIRE]: { 
-		"name": "Explosion",
-		"castTime": 0.4,
-		"damage": 10, 
-		"effect": preload("res://effects/explosion_1.tscn")
-	},
-	[WATER]: { "name": "Water Beam", "damage": 10, "effect": NodePath() },
-	[AIR]: { "name": "Gust", "damage": 10, "effect": NodePath() },
-	[EARTH]: { "name": "Boulder", "damage": 10, "effect": NodePath() },
-	[FIRE, FIRE]: { "name": "Ignite", "damage": 20, "effect": NodePath() },
+	[FIRE]: NodePath(), # "Cast/Explosion"
+	[WATER]: NodePath(),
+	[AIR]: NodePath(),
+	[EARTH]: NodePath(),
+	[FIRE, FIRE]: NodePath(),
 }
 
 var rune_stack: = []
@@ -53,8 +48,10 @@ func _unhandled_input(event: InputEvent):
 		var mouseEvent := (event as InputEventMouseButton)
 		
 		if rune_stack in spells:
+			var spell = get_node(spells[rune_stack])
+			assert(spell, "Error: spell ('" + spells[rune_stack] + "') not found in '" + get_path() + "'. Is it plugged in?")
 			_change_state(get_node(cast), {
-				"spell": spells[rune_stack], 
+				"spell": spell, 
 				"targetPos": mouseEvent.position
 			})
 		

@@ -12,6 +12,7 @@
 extents = Vector3( 0.627, 1, 0.484 )
 
 [node name="SkeletonWarrior" type="KinematicBody"]
+collision_layer = 17
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource( 6 )
