@@ -1,4 +1,5 @@
 extends "res://modules/state_machine.gd"
+const CommandQueue = preload("res://modules/command_queue.gd")
 
 export var cast: NodePath
 
@@ -18,6 +19,7 @@ export var spells: = {
 }
 
 var rune_stack: = []
+var commands: = CommandQueue.new()
 
 func _change_state(state: Node, args := {}):
 	if not _active:
@@ -54,43 +56,16 @@ func _unhandled_input(event: InputEvent):
 		
 		rune_stack = []
 
-
-var _promises := []
-
-
-func queue_command(object: Object, complete_signal: String) -> GDScriptFunctionState:
-	var previous = _promises.back()
-	var root = _empty_promise()
-	_promise_command(root, object, complete_signal)
-	_push_promise(root)
-	
-	return previous
-
-func _promise_command(root, object: Object, complete_signal: String):
-	if _promises.size():
-		yield(_promises.back(), "completed")
-	
-	yield(object, complete_signal)
-	
-	root.resume()
-
-func _push_promise(promise: GDScriptFunctionState) -> GDScriptFunctionState:
-	_promises.push_back(promise)
-	promise.connect("completed", self, "_pop_promise")
-	return promise
-
-func _pop_promise():
-	return _promises.pop_front()
-
-func _empty_promise():
-	yield()
-
 func cast_spell(spell, targetPos: Vector2):
-	var previous = queue_command(get_node(cast), "finished")
+	
+	var command: = commands.new_command()
 	# NOTE: only yield conditionally, to keep the first command synchronous
-	if previous: yield(previous, "completed")
+	if command.previous: yield(command.previous, "completed")
 	
 	_change_state(get_node(cast), {
 		"spell": spell, 
 		"targetPos": targetPos
 	})
+	
+	yield(get_node(cast), "finished")
+	command.end()

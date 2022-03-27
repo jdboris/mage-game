@@ -1,34 +1,34 @@
+# Description: 
+# A queue for "commands", to facilitate following the "command pattern".
+
+# How to use:
+
+# var commands: = CommandQueue.new()
+# ...
+# var command: = commands.new_command()
+# # NOTE: only yield conditionally, to keep the first command synchronous
+# if command.previous: yield(command.previous, "completed")
+# ...
+# # NOTE: If necessary, yield again to await the full command duration...
+# yield(get_node(cast), "finished")
+# command.end()
+
 extends Node
+const Command: = preload("command.gd")
 
 var _promises := []
 
-#class Command:
-#	var previous: GDScriptFunctionState
-#	var _current: GDScriptFunctionState
-#
-#	func _init(previous: GDScriptFunctionState, current: GDScriptFunctionState) -> void:
-#		self.previous = previous
-#		_current = current
-#
-#	func end():
-#		_current.resume()
-#var command = Command.new(previous, root)
-
-func queue_command(object: Object, complete_signal: String) -> GDScriptFunctionState:
-	var previous = _promises.back()
+func new_command() -> Command:
+	var previous = _promises.back() if not _promises.empty() else null
 	var root = _empty_promise()
-	_promise_command(root, object, complete_signal)
+	_promise_command(root)
 	_push_promise(root)
 	
-	return previous
+	return Command.new(previous, root)
 
-func _promise_command(root, object: Object, complete_signal: String):
+func _promise_command(root):
 	if _promises.size():
 		yield(_promises.back(), "completed")
-	
-	yield(object, complete_signal)
-	
-	root.resume()
 
 func _push_promise(promise: GDScriptFunctionState) -> GDScriptFunctionState:
 	_promises.push_back(promise)
