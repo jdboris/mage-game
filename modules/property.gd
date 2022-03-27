@@ -1,5 +1,4 @@
 extends Node
-class_name PropertyNode
 
 signal value_changed(old_value, new_value)
 

@@ -3,7 +3,7 @@ extends Spatial
 export var health_node_path: NodePath
 
 func _ready():
-	var health_node = (get_node(health_node_path) as PropertyNode)
+	var health_node: = get_node(health_node_path)
 	$Viewport/Wrapper/HealthBar.max_value = health_node.max_value
 	$Viewport/Wrapper/HealthBar.min_value = health_node.min_value
 	$Viewport/Wrapper/HealthBar.value = health_node.value

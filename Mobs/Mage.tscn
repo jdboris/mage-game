@@ -18,6 +18,13 @@ collision_layer = 5
 [node name="Mage" parent="Pivot" instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 
+[node name="Skeleton" parent="Pivot/Mage/CharacterArmature" index="1"]
+bones/4/bound_children = [  ]
+bones/7/bound_children = [  ]
+bones/9/bound_children = [  ]
+bones/17/bound_children = [  ]
+bones/22/bound_children = [  ]
+
 [node name="BoneAttachment" parent="Pivot/Mage/CharacterArmature/Skeleton" index="0"]
 transform = Transform( 1, 6.03275e-12, -0.000550203, -6.16703e-05, 0.993699, -0.112086, 0.000546736, 0.112086, 0.993698, -0.000638377, 2.09957, 0.0809259 )
 
