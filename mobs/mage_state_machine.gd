@@ -1,7 +1,6 @@
 extends "res://modules/state_machine/state_machine.gd"
-const CommandQueue = preload("res://modules/command_queue/command_queue.gd")
 
-export var cast: NodePath
+export var casting: NodePath
 
 enum {
 	FIRE,
@@ -19,9 +18,10 @@ export var spells: = {
 }
 
 var rune_stack: = []
-var commands: = CommandQueue.new()
+var commands: = preload("res://modules/command_queue/command_queue.gd").new()
 
 func _change_state(state: Node, args := {}):
+	
 	if not _active:
 		return
 	if current_state in [$Casting] and not state in [$Idle]:
@@ -62,10 +62,10 @@ func cast_spell(spell, targetPos: Vector2):
 	# NOTE: only yield conditionally, to keep the first command synchronous
 	if command.previous: yield(command.previous, "completed")
 	
-	_change_state(get_node(cast), {
+	_change_state(get_node(casting), {
 		"spell": spell, 
 		"targetPos": targetPos
 	})
 	
-	yield(get_node(cast), "finished")
+	yield(get_node(casting), "finished")
 	command.end()
