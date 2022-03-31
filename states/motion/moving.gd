@@ -4,8 +4,8 @@ export var walk_animation: String
 
 export var idle: NodePath
 
-export(float) var max_walk_speed = 4
-export(float) var max_run_speed = 8
+export var max_walk_speed: = 4
+export var max_run_speed: = 8
 
 
 func enter(args := {}):
