@@ -1,7 +1,5 @@
 extends "motion.gd"
 
-export var jump: NodePath
-
 # warning-ignore-all:unused_class_variable
 var speed = 0.0
 var velocity = Vector3()

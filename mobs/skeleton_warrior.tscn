@@ -1,12 +1,14 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://states/motion/idle.gd" type="Script" id=1]
 [ext_resource path="res://mobs/skeleton_warrior_state_machine.gd" type="Script" id=2]
 [ext_resource path="res://models/skeleton_warrior.tscn" type="PackedScene" id=3]
-[ext_resource path="res://states/motion/move.gd" type="Script" id=4]
+[ext_resource path="res://states/motion/moving.gd" type="Script" id=4]
 [ext_resource path="res://modules/melee_ai_input.gd" type="Script" id=5]
-[ext_resource path="res://modules/property.gd" type="Script" id=6]
+[ext_resource path="res://modules/props/float_prop.gd" type="Script" id=6]
 [ext_resource path="res://modules/ui/mob_ui.tscn" type="PackedScene" id=7]
+[ext_resource path="res://states/dead.gd" type="Script" id=8]
+[ext_resource path="res://modules/props/bool_prop.gd" type="Script" id=9]
 
 [sub_resource type="BoxShape" id=3]
 extents = Vector3( 0.627, 1, 0.484 )
@@ -14,22 +16,19 @@ extents = Vector3( 0.627, 1, 0.484 )
 [node name="SkeletonWarrior" type="KinematicBody"]
 collision_layer = 17
 
+[node name="Props" type="Node" parent="."]
+
 [node name="Health" type="Node" parent="."]
 script = ExtResource( 6 )
 max_value = 100.0
 value = 100.0
 
+[node name="IsDead" type="Node" parent="."]
+script = ExtResource( 9 )
+
 [node name="Pivot" type="Spatial" parent="."]
 
 [node name="character_skeleton_warrior" parent="Pivot" instance=ExtResource( 3 )]
-
-[node name="Skeleton" parent="Pivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/KayKit Animated Character" index="0"]
-bones/0/bound_children = [  ]
-bones/1/bound_children = [  ]
-bones/2/bound_children = [  ]
-bones/3/bound_children = [  ]
-bones/4/bound_children = [  ]
-bones/5/bound_children = [  ]
 
 [node name="Head" parent="Pivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/KayKit Animated Character/Skeleton" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.711598, 0 )
@@ -55,23 +54,31 @@ script = ExtResource( 5 )
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 2 )
+dead = NodePath("Dead")
 _ai_input = NodePath("../MeleeAiInput")
 
 [node name="Idle" type="Node" parent="StateMachine"]
 script = ExtResource( 1 )
 animation_player = NodePath("../../Pivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/AnimationPlayer")
 idle_animation = "Idle"
-move = NodePath("../Move")
+moving = NodePath("../Moving")
 
-[node name="Move" type="Node" parent="StateMachine"]
+[node name="Moving" type="Node" parent="StateMachine"]
 script = ExtResource( 4 )
 animation_player = NodePath("../../Pivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/AnimationPlayer")
 walk_animation = "Run"
 idle = NodePath("../Idle")
 max_walk_speed = 1.0
 
+[node name="Dead" type="Node" parent="StateMachine"]
+script = ExtResource( 8 )
+animation_player = NodePath("../../Pivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/AnimationPlayer")
+death_animation = "Defeat"
+
 [node name="MobUi" parent="." instance=ExtResource( 7 )]
 health_node_path = NodePath("../Health")
+
+[connection signal="value_changed" from="Health" to="StateMachine" method="_on_Health_value_changed"]
 
 [editable path="Pivot/character_skeleton_warrior"]
 [editable path="Pivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12"]

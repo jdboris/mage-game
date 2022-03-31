@@ -15,7 +15,5 @@ func cast(args = {"target": Vector3.ZERO}):
 	Global.level.add_child(explosion)
 
 func _on_Explosion_1_body_entered(body: KinematicBody) -> void:
-	
 	if body:
-		var healthNode = body.get_node("Health")
-		healthNode.value -= damage
+		body.get_node("Health").value -= damage

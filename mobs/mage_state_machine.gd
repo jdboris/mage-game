@@ -1,5 +1,5 @@
-extends "res://modules/state_machine.gd"
-const CommandQueue = preload("res://modules/command_queue.gd")
+extends "res://modules/state_machine/state_machine.gd"
+const CommandQueue = preload("res://modules/command_queue/command_queue.gd")
 
 export var cast: NodePath
 
@@ -24,7 +24,7 @@ var commands: = CommandQueue.new()
 func _change_state(state: Node, args := {}):
 	if not _active:
 		return
-	if current_state in [$Cast] and not state in [$Idle]:
+	if current_state in [$Casting] and not state in [$Idle]:
 		return
 	# if state in [$Stagger, $Jump, $Attack]:
 	# 	states_stack.push_front(state)

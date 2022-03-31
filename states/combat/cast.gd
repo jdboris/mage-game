@@ -1,4 +1,4 @@
-extends "res://modules/state.gd"
+extends "res://modules/state_machine/state.gd"
 
 export var idle: NodePath
 export var cast_animation: String

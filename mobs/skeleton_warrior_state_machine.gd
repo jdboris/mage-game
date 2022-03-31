@@ -1,4 +1,4 @@
-extends "res://modules/state_machine.gd"
+extends "res://modules/state_machine/state_machine.gd"
 
 func _change_state(state: Node, args := {}):
 	if not _active:
@@ -18,3 +18,6 @@ func _unhandled_input(event):
 #		_change_state($Attack.get_path(), {})
 #		return
 	current_state.handle_input(event)
+
+# NOTE: inherited from state_machine.gd
+#func _on_Health_value_changed(old_value, new_value) -> void:
