@@ -1,5 +1,7 @@
 extends "res://modules/state_machine/state_machine.gd"
 
+export var dead: NodePath
+
 func _change_state(state: Node, args := {}):
 	if not _active:
 		return
@@ -19,5 +21,7 @@ func _unhandled_input(event):
 #		return
 	current_state.handle_input(event)
 
-# NOTE: inherited from state_machine.gd
-#func _on_Health_value_changed(old_value, new_value) -> void:
+
+func _on_Health_value_changed(old_value, prop) -> void:
+	if prop.value <= 0:
+		_change_state(get_node(dead))

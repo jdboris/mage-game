@@ -3,7 +3,6 @@ extends Node
 signal state_changed(current_state)
 
 export var start_state: NodePath
-export var dead: NodePath
 
 var states_stack := []
 var current_state = null
@@ -83,14 +82,9 @@ func _change_state(state: Node, args := {}):
 	else:
 		states_stack[0] = state
 		assert(states_stack[0], "Error: State ('" + state.get_path() + "') not found in '" + get_path() + "'. Is it plugged in?")
-
+	
 	current_state = states_stack[0]
 	emit_signal("state_changed", current_state.get_path())
 
 	if state != null:
 		current_state.enter(args)
-
-
-func _on_Health_value_changed(old_value, new_value) -> void:
-	if new_value <= 0:
-		_change_state(get_node(dead))
