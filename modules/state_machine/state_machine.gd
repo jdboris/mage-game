@@ -46,7 +46,6 @@ func initialize(initial_state_path: NodePath):
 	states_stack.push_front(get_node(initial_state_path))
 	current_state = states_stack[0]
 	current_state.enter({})
-	
 
 
 func set_active(value: bool):
@@ -72,13 +71,21 @@ func _on_animation_finished(anim_name: String):
 	current_state._on_animation_finished(anim_name)
 
 
-func _change_state(state: Node, args := {}):
+func _change_state(state: Node = null, args := {}):
+	assert(state || current_state.is_reversible, "Error: new state is null, but current_state is not reversible.")
+	
 	if not _active:
 		return
+	
+	# Push reversible States onto the stack to be removed later.
+	if state and state.is_reversible:
+		states_stack.push_front(state)
+	
 	current_state.exit()
-
-	# NOTE: null is reserved for returning to previous state
+	
+	# NOTE: null is reserved for "reversing" (returning to previous state).
 	if state == null:
+		assert(states_stack.size() > 1, "Error: Attempted to return to previous from State ('" + current_state.get_path() + "') with no more States on the stack. Is is_reversible set to true?")
 		states_stack.pop_front()
 	else:
 		states_stack[0] = state
@@ -87,5 +94,6 @@ func _change_state(state: Node, args := {}):
 	current_state = states_stack[0]
 	emit_signal("state_changed", current_state.get_path())
 
-	if state != null:
-		current_state.enter(args)
+	# NOTE: This may be useful to allow resuming a State that was interrupted.
+#	if state != null:
+	current_state.enter(args)

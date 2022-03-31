@@ -2,7 +2,7 @@ extends "res://modules/state_machine/state_machine.gd"
 
 export var dead: NodePath
 
-func _change_state(state: Node, args := {}):
+func _change_state(state: Node = null, args := {}):
 	if not _active:
 		return
 	# if state in [$Stagger, $Jump, $Attack]:

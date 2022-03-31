@@ -4,6 +4,8 @@ extends Node
 # but forces us to pass the right arguments to the methods below
 # and makes sure every State object has all of these methods.
 
+# Whether or not it will be placed on the state stack to be "reversed" (return to previous)
+var is_reversible: = false
 export var animation_player: NodePath
 
 # NOTE: The parent node (StateMachine) is responsible for this property.

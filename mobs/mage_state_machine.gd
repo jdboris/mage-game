@@ -20,12 +20,12 @@ export var spells: = {
 var rune_stack: = []
 var commands: = preload("res://modules/command_queue/command_queue.gd").new()
 
-func _change_state(state: Node, args := {}):
+func _change_state(state: Node = null, args := {}):
 	
 	if not _active:
 		return
-	if current_state in [$Casting] and not state in [$Idle]:
-		return
+#	if current_state in [$Casting] and not state in [$Idle]:
+#		return
 	# if state in [$Stagger, $Jump, $Attack]:
 	# 	states_stack.push_front(state)
 	# if state == $Jump and current_state == $Move:

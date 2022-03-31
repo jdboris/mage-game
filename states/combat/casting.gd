@@ -3,6 +3,9 @@ extends "res://modules/state_machine/state.gd"
 export var idle: NodePath
 export var cast_animation: String
 
+func _ready() -> void:
+	is_reversible = true
+
 func enter(args := {"spell": {}, "targetPos": Vector2.ZERO}):
 	var position = Global.get_position_at_point_from_camera(args.targetPos)
 	var direction = position - owner.translation
