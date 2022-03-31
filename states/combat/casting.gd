@@ -12,4 +12,4 @@ func enter(args := {"spell": {}, "targetPos": Vector2.ZERO}):
 
 func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
 	if anim_name == cast_animation:
-		emit_signal("finished", get_node(idle), {})
+		emit_signal("finished", null, {})
