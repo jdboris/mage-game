@@ -6,7 +6,7 @@ extends Node
 
 export var animation_player: NodePath
 
-# NOTE: The parent (StateMachine) is responsible for this property.
+# NOTE: The parent node (StateMachine) is responsible for this property.
 #       Its value will either be the Input singleton, or an AI input node.
 var Input
 

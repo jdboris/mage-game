@@ -8,6 +8,9 @@ var states_stack := []
 var current_state = null
 var _active := false setget set_active
 
+# NOTE: After _ready(), this will either point to the Input singleton, 
+#       or an AI input node.
+var Input
 export var _ai_input: NodePath setget _set_ai_input
 
 func _set_ai_input(value):
@@ -18,12 +21,10 @@ func _set_ai_input(value):
 	set_process_input(!value)
 	set_process_unhandled_input(!value)
 	
-#	assert(input != @"", "Error: Input NodePath<CustomInput> ('" + input + "') empty in '" + get_path() + "'. Is it plugged in?")
-	
-	var input = get_node(value) if value else Input
+	Input = get_node(value) if value else preload("input_util.gd").get_input()
 	var children = get_children()
 	for child in children:
-		child.Input = input
+		child.Input = Input
 
 func _ready():
 	# NOTE: Trigger the setter manually in case the Inspector didn't
