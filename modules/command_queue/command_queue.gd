@@ -21,19 +21,19 @@ var _promises := []
 func new_command() -> Command:
 	var previous = _promises.back() if not _promises.empty() else null
 	var root = _empty_promise()
-	_promise_command(root)
+	_promise_command()
 	_push_promise(root)
 	
 	return Command.new(previous, root)
 
-func _promise_command(root):
+func _promise_command():
 	if _promises.size():
 		yield(_promises.back(), "completed")
 
-func _push_promise(promise: GDScriptFunctionState) -> GDScriptFunctionState:
+func _push_promise(promise: GDScriptFunctionState):
 	_promises.push_back(promise)
-	promise.connect("completed", self, "_pop_promise")
-	return promise
+	var error: = promise.connect("completed", self, "_pop_promise")
+	assert(!error, "Error: Failed to connect to '_pop_promise' signal.")
 
 func _pop_promise():
 	return _promises.pop_front()
