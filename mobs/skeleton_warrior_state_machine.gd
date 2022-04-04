@@ -25,5 +25,5 @@ func _unhandled_input(event):
 
 
 func _on_Health_value_changed(old_value, prop) -> void:
-	if prop.value <= 0:
+	if prop.value <= 0 and current_state != get_node(dead):
 		_change_state(get_node(dead))
