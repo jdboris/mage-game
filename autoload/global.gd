@@ -15,3 +15,4 @@ func get_position_at_point_from_camera(point: Vector2, relCamera: Camera = camer
 		return intersection.position
 	else:
 		return Vector3.ZERO
+	
