@@ -51,7 +51,7 @@ func _unhandled_input(event: InputEvent):
 		
 		if rune_stack in spells:
 			var spell = get_node(spells[rune_stack])
-			assert(spell, "Error: spell ('" + spells[rune_stack] + "') not found in '" + get_path() + "'. Is it plugged in?")
+			assert(spell, "Error: spell ('" + spells[rune_stack] + "') with run stack ('" + String(rune_stack) + "') not found in '" + get_path() + "'. Is it plugged in?")
 			cast_spell(spell, mouseEvent.position)
 		
 		rune_stack = []

@@ -1,4 +1,5 @@
 extends Node
+class_name StateMachine
 
 signal state_changed(current_state)
 

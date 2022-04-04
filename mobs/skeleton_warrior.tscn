@@ -8,77 +8,78 @@
 [ext_resource path="res://modules/props/float_prop.gd" type="Script" id=6]
 [ext_resource path="res://modules/ui/mob_ui.tscn" type="PackedScene" id=7]
 [ext_resource path="res://states/dead.gd" type="Script" id=8]
-[ext_resource path="res://modules/props/bool_prop.gd" type="Script" id=9]
+[ext_resource path="res://modules/mob_hurtbox/mob_hurtbox.tscn" type="PackedScene" id=9]
 
 [sub_resource type="BoxShape" id=3]
 extents = Vector3( 0.627, 1, 0.484 )
 
 [node name="SkeletonWarrior" type="KinematicBody"]
-collision_layer = 17
+collision_layer = 16
+collision_mask = 28
 
 [node name="Props" type="Node" parent="."]
 
-[node name="Health" type="Node" parent="."]
+[node name="Health" type="Node" parent="Props"]
 script = ExtResource( 6 )
 max_value = 100.0
 value = 100.0
 
-[node name="IsDead" type="Node" parent="."]
-script = ExtResource( 9 )
+[node name="ModelPivot" type="Spatial" parent="."]
 
-[node name="Pivot" type="Spatial" parent="."]
+[node name="character_skeleton_warrior" parent="ModelPivot" instance=ExtResource( 3 )]
 
-[node name="character_skeleton_warrior" parent="Pivot" instance=ExtResource( 3 )]
-
-[node name="Head" parent="Pivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/KayKit Animated Character/Skeleton" index="0"]
+[node name="Head" parent="ModelPivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/KayKit Animated Character/Skeleton" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.711598, 0 )
 
-[node name="ArmLeft" parent="Pivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/KayKit Animated Character/Skeleton" index="2"]
+[node name="ArmLeft" parent="ModelPivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/KayKit Animated Character/Skeleton" index="2"]
 transform = Transform( -1.19209e-07, 0.471936, -0.881633, 2.5332e-07, -0.881633, -0.471936, -1, -2.5332e-07, -1.19209e-07, 0.14, 0.691598, -1.3027e-15 )
 
-[node name="ArmRight" parent="Pivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/KayKit Animated Character/Skeleton" index="3"]
+[node name="ArmRight" parent="ModelPivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/KayKit Animated Character/Skeleton" index="3"]
 transform = Transform( -1.19209e-07, -0.471936, -0.881633, -2.23518e-07, -0.881633, 0.471936, -1, 2.23517e-07, -1.19209e-07, -0.14, 0.691598, 8.40813e-15 )
 
-[node name="HandSlotLeft" parent="Pivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/KayKit Animated Character/Skeleton" index="4"]
+[node name="HandSlotLeft" parent="ModelPivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/KayKit Animated Character/Skeleton" index="4"]
 transform = Transform( -1, 2.92556e-08, 0, 0, 1.04171e-07, 1, -1.04757e-07, 1, -7.80337e-08, 0.4, 0.205887, -1.3956e-07 )
 
-[node name="HandSlotRight" parent="Pivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/KayKit Animated Character/Skeleton" index="5"]
+[node name="HandSlotRight" parent="ModelPivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/KayKit Animated Character/Skeleton" index="5"]
 transform = Transform( -1, 1.0808e-07, 0, 0, -1.76167e-07, 1, 3.87132e-10, 1, 2.23518e-07, -0.4, 0.205887, 1.2314e-07 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00129247, 1.01194, 0.000229836 )
 shape = SubResource( 3 )
 
+[node name="MobHurtbox" parent="." instance=ExtResource( 9 )]
+_mob_health = NodePath("../Props/Health")
+_state_machine = NodePath("../StateMachine")
+
 [node name="MeleeAiInput" type="Node" parent="."]
 script = ExtResource( 5 )
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 2 )
-dead = NodePath("Dead")
 _ai_input = NodePath("../MeleeAiInput")
+dead = NodePath("Dead")
 
 [node name="Idle" type="Node" parent="StateMachine"]
 script = ExtResource( 1 )
-animation_player = NodePath("../../Pivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/AnimationPlayer")
+animation_player = NodePath("../../ModelPivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/AnimationPlayer")
 idle_animation = "Idle"
 moving = NodePath("../Moving")
 
 [node name="Moving" type="Node" parent="StateMachine"]
 script = ExtResource( 4 )
-animation_player = NodePath("../../Pivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/AnimationPlayer")
+animation_player = NodePath("../../ModelPivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/AnimationPlayer")
 walk_animation = "Run"
 idle = NodePath("../Idle")
-max_walk_speed = 1.0
 
 [node name="Dead" type="Node" parent="StateMachine"]
 script = ExtResource( 8 )
-animation_player = NodePath("../../Pivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/AnimationPlayer")
+animation_player = NodePath("../../ModelPivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/AnimationPlayer")
 death_animation = "Defeat"
 
 [node name="MobUi" parent="." instance=ExtResource( 7 )]
-health_node_path = NodePath("../Health")
 
-[connection signal="value_changed" from="Health" to="StateMachine" method="_on_Health_value_changed"]
+[connection signal="value_changed" from="Props/Health" to="StateMachine" method="_on_Health_value_changed"]
+[connection signal="value_changed" from="Props/Health" to="MobUi" method="_on_Health_value_changed"]
 
-[editable path="Pivot/character_skeleton_warrior"]
-[editable path="Pivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12"]
+[editable path="ModelPivot/character_skeleton_warrior"]
+[editable path="ModelPivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12"]

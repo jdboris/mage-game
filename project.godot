@@ -8,6 +8,28 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Node",
+"class": "FloatProp",
+"language": "GDScript",
+"path": "res://modules/props/float_prop.gd"
+}, {
+"base": "Area",
+"class": "MobHurtbox",
+"language": "GDScript",
+"path": "res://modules/mob_hurtbox/mob_hurtbox.gd"
+}, {
+"base": "Node",
+"class": "StateMachine",
+"language": "GDScript",
+"path": "res://modules/state_machine/state_machine.gd"
+} ]
+_global_script_class_icons={
+"FloatProp": "",
+"MobHurtbox": "",
+"StateMachine": ""
+}
+
 [application]
 
 config/name="mage-game"
@@ -16,7 +38,8 @@ config/icon="res://icon.png"
 
 [autoload]
 
-Global="*res://global.gd"
+Global="*res://autoload/global.gd"
+CollisionLayers="*res://modules/collision_layers.gd"
 
 [global]
 
@@ -67,11 +90,11 @@ earth_rune={
 
 [layer_names]
 
-3d_physics/layer_1="Default"
-3d_physics/layer_2="Ground"
-3d_physics/layer_3="Friendly"
-3d_physics/layer_4="Neutral"
-3d_physics/layer_5="Hostile"
+3d_physics/layer_1="DEFAULT"
+3d_physics/layer_2="GROUND"
+3d_physics/layer_3="FRIENDLY"
+3d_physics/layer_4="NEUTRAL"
+3d_physics/layer_5="HOSTILE"
 
 [physics]
 
