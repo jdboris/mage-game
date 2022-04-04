@@ -1,5 +1,7 @@
 extends "res://modules/state_machine/state_machine.gd"
 
+var target: KinematicBody
+
 export var dead: NodePath
 
 func _change_state(state: Node = null, args := {}):

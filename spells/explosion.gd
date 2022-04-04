@@ -24,3 +24,4 @@ func cast(args = {"target": Vector3.ZERO}):
 
 func _on_Explosion_1_area_entered(hurtbox: MobHurtbox):
 	hurtbox.mob_health.value -= damage
+	hurtbox.ai_input.set_target(owner)

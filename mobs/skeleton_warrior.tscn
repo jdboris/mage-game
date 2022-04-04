@@ -28,6 +28,14 @@ value = 100.0
 
 [node name="character_skeleton_warrior" parent="ModelPivot" instance=ExtResource( 3 )]
 
+[node name="Skeleton" parent="ModelPivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/KayKit Animated Character" index="0"]
+bones/0/bound_children = [  ]
+bones/1/bound_children = [  ]
+bones/2/bound_children = [  ]
+bones/3/bound_children = [  ]
+bones/4/bound_children = [  ]
+bones/5/bound_children = [  ]
+
 [node name="Head" parent="ModelPivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/KayKit Animated Character/Skeleton" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.711598, 0 )
 
@@ -48,8 +56,9 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00129247, 1.01194, 0.0002298
 shape = SubResource( 3 )
 
 [node name="MobHurtbox" parent="." instance=ExtResource( 9 )]
-_mob_health = NodePath("../Props/Health")
+_ai_input = NodePath("../MeleeAiInput")
 _state_machine = NodePath("../StateMachine")
+_mob_health = NodePath("../Props/Health")
 
 [node name="MeleeAiInput" type="Node" parent="."]
 script = ExtResource( 5 )
@@ -70,6 +79,7 @@ script = ExtResource( 4 )
 animation_player = NodePath("../../ModelPivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/AnimationPlayer")
 walk_animation = "Run"
 idle = NodePath("../Idle")
+max_walk_speed = 2
 
 [node name="Dead" type="Node" parent="StateMachine"]
 script = ExtResource( 8 )

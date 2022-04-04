@@ -73,6 +73,7 @@ script = ExtResource( 6 )
 animation_player = NodePath("../../../ModelPivot/Mage/AnimationPlayer")
 cast_animation = "Spell1"
 fireball = ExtResource( 7 )
+damage = 20.0
 
 [connection signal="animation_finished" from="ModelPivot/Mage/AnimationPlayer" to="StateMachine/Casting" method="_on_AnimationPlayer_animation_finished"]
 
