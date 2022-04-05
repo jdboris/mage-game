@@ -56,7 +56,7 @@ func _unhandled_input(event: InputEvent):
 		
 		rune_stack = []
 
-func cast_spell(spell, targetPos: Vector2):
+func cast_spell(spell, target_pos: Vector2):
 	
 	var command: = commands.new_command()
 	# NOTE: only yield conditionally, to keep the first command synchronous
@@ -64,7 +64,7 @@ func cast_spell(spell, targetPos: Vector2):
 	
 	_change_state(get_node(casting), {
 		"spell": spell, 
-		"targetPos": targetPos
+		"target_pos": target_pos
 	})
 	
 	yield(get_node(casting), "finished")

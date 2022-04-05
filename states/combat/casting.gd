@@ -6,8 +6,8 @@ export var cast_animation: String
 func _ready() -> void:
 	is_reversible = true
 
-func enter(args := {"spell": {}, "targetPos": Vector2.ZERO}):
-	var position = Global.get_position_at_point_from_camera(args.targetPos)
+func enter(args := {"spell": {}, "target_pos": Vector2.ZERO}):
+	var position = Global.get_position_at_point_from_camera(args.target_pos)
 	var direction = position - owner.translation
 	owner.look_at(owner.translation - direction, Vector3.UP)
 	
