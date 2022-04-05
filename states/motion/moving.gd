@@ -11,7 +11,7 @@ export var max_run_speed: = 8
 func enter(args := {}):
 	speed = 0.0
 	velocity = Vector3()
-
+	
 	var input_direction = get_input_direction()
 	update_look_direction(input_direction)
 	assert(get_node(animation_player), "Error: AnimationPlayer ('" + animation_player + "') not found in '" + get_path() + "'. Is it plugged in?")
