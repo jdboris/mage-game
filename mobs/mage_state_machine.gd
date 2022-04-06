@@ -53,9 +53,6 @@ func _unhandled_input(event: InputEvent):
 				cast_spell(spell, mouse_event.position)
 			
 			rune_stack = []
-		elif event.button_index == BUTTON_RIGHT:
-			if current_state is MotionState:
-				current_state.target_pos = Global.get_position_at_point_from_camera(mouse_event.position)
 
 func cast_spell(spell, target_pos: Vector2):
 	

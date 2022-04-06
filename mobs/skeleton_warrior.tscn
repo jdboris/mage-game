@@ -28,6 +28,14 @@ value = 100.0
 
 [node name="character_skeleton_warrior" parent="ModelPivot" instance=ExtResource( 3 )]
 
+[node name="Skeleton" parent="ModelPivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/KayKit Animated Character" index="0"]
+bones/0/bound_children = [  ]
+bones/1/bound_children = [  ]
+bones/2/bound_children = [  ]
+bones/3/bound_children = [  ]
+bones/4/bound_children = [  ]
+bones/5/bound_children = [  ]
+
 [node name="Head" parent="ModelPivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/KayKit Animated Character/Skeleton" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.711598, 0 )
 
@@ -63,8 +71,8 @@ dead = NodePath("Dead")
 [node name="Idle" type="Node" parent="StateMachine"]
 script = ExtResource( 1 )
 animation_player = NodePath("../../ModelPivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/AnimationPlayer")
-idle_animation = "Idle"
 moving = NodePath("../Moving")
+idle_animation = "Idle"
 
 [node name="Moving" type="Node" parent="StateMachine"]
 script = ExtResource( 4 )
