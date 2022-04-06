@@ -44,15 +44,14 @@ func _unhandled_input(event: InputEvent):
 		rune_stack.push_back(AIR)
 	elif event.is_action_pressed("earth_rune"):
 		rune_stack.push_back(EARTH)
-	elif event is InputEventMouseButton and event.is_pressed():
+	elif event.is_action_pressed("cast_at"):
 		var mouse_event := (event as InputEventMouseButton)
-		if event.button_index == BUTTON_LEFT:
-			if rune_stack in spells:
-				var spell = get_node(spells[rune_stack])
-				assert(spell, "Error: spell ('" + spells[rune_stack] + "') with run stack ('" + String(rune_stack) + "') not found in '" + get_path() + "'. Is it plugged in?")
-				cast_spell(spell, mouse_event.position)
-			
-			rune_stack = []
+		if rune_stack in spells:
+			var spell = get_node(spells[rune_stack])
+			assert(spell, "Error: spell ('" + spells[rune_stack] + "') with run stack ('" + String(rune_stack) + "') not found in '" + get_path() + "'. Is it plugged in?")
+			cast_spell(spell, mouse_event.position)
+		
+		rune_stack = []
 
 func cast_spell(spell, target_pos: Vector2):
 	
