@@ -77,6 +77,7 @@ idle_animation = "Idle"
 [node name="Moving" type="Node" parent="StateMachine"]
 script = ExtResource( 4 )
 animation_player = NodePath("../../ModelPivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/AnimationPlayer")
+moving = NodePath(".")
 walk_animation = "Run"
 idle = NodePath("../Idle")
 max_walk_speed = 2
@@ -90,6 +91,7 @@ death_animation = "Defeat"
 
 [connection signal="value_changed" from="Props/Health" to="StateMachine" method="_on_Health_value_changed"]
 [connection signal="value_changed" from="Props/Health" to="MobUi" method="_on_Health_value_changed"]
+[connection signal="input" from="MeleeAiInput" to="StateMachine" method="_unhandled_input"]
 
 [editable path="ModelPivot/character_skeleton_warrior"]
 [editable path="ModelPivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12"]
