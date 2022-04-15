@@ -5,6 +5,17 @@ onready var camera: Camera = $"../Main/CameraPivot/Camera"
 
 onready var level: = $"../Main"
 
+onready var fps_timer: = Timer.new()
+
+func _ready() -> void:
+	fps_timer.connect("timeout", self, "update_fps")
+	fps_timer.wait_time = 1
+	add_child(fps_timer)
+	fps_timer.start()
+
+func update_fps():
+	OS.set_window_title("FPS: " + str(Engine.get_frames_per_second()))
+
 func get_3d_position_at_point(point: Vector2, rel_camera: Camera = camera) -> Vector3:
 	var space_state = rel_camera.get_world().direct_space_state
 	var ray_origin = rel_camera.project_ray_origin(point)
@@ -24,3 +35,4 @@ func init_object(target: Object, source: Dictionary):
 	for key in source:
 		target[key] = source[key]
 	return target
+
