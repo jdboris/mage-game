@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://states/motion/idle.gd" type="Script" id=1]
 [ext_resource path="res://mobs/skeleton_warrior_state_machine.gd" type="Script" id=2]
@@ -12,6 +12,9 @@
 
 [sub_resource type="BoxShape" id=3]
 extents = Vector3( 0.627, 1, 0.484 )
+
+[sub_resource type="SphereShape" id=4]
+radius = 10.0
 
 [node name="SkeletonWarrior" type="KinematicBody"]
 collision_layer = 16
@@ -55,6 +58,14 @@ transform = Transform( -1, 1.0808e-07, 0, 0, -1.76167e-07, 1, 3.87132e-10, 1, 2.
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00129247, 1.01194, 0.000229836 )
 shape = SubResource( 3 )
 
+[node name="AggroArea" type="Area" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape" type="CollisionShape" parent="AggroArea"]
+shape = SubResource( 4 )
+
 [node name="MobHurtbox" parent="." instance=ExtResource( 9 )]
 _ai_input = NodePath("../MeleeAiInput")
 _state_machine = NodePath("../StateMachine")
@@ -91,6 +102,7 @@ death_animation = "Defeat"
 
 [connection signal="value_changed" from="Props/Health" to="StateMachine" method="_on_Health_value_changed"]
 [connection signal="value_changed" from="Props/Health" to="MobUi" method="_on_Health_value_changed"]
+[connection signal="body_entered" from="AggroArea" to="MeleeAiInput" method="set_target"]
 [connection signal="input" from="MeleeAiInput" to="StateMachine" method="_unhandled_input"]
 
 [editable path="ModelPivot/character_skeleton_warrior"]
