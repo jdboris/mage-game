@@ -17,7 +17,7 @@ _global_script_classes=[ {
 "base": "InputEventAction",
 "class": "AttackAction",
 "language": "GDScript",
-"path": "res://input_actions/attack.gd"
+"path": "res://input_actions/attack_action.gd"
 }, {
 "base": "Node",
 "class": "FloatProp",
@@ -32,7 +32,7 @@ _global_script_classes=[ {
 "base": "InputEventAction",
 "class": "MoveToAction",
 "language": "GDScript",
-"path": "res://input_actions/move_to.gd"
+"path": "res://input_actions/move_to_action.gd"
 }, {
 "base": "Node",
 "class": "StateMachine",
