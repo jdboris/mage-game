@@ -1,30 +1,7 @@
 extends Node
 class_name AiInput
 
-class CustomEvent extends InputEventAction:
-	var position: Vector2
-	
-	func _init() -> void:
-		pressed = true
-		strength = 1
-
 signal input(event)
-
-var target: KinematicBody
-
-func move_mob_towards_target(mob: KinematicBody, target: KinematicBody):
-	var event = Global.init_object( 
-		CustomEvent.new(), {
-			"action": "move_to",
-			"position": Global.get_2d_position_at_point(target.global_transform.origin)
-		}
-	)
-	
-	emit_signal("input", event)
-
-func set_target(mob: KinematicBody):
-	target = target if target else mob
-
 
 #var actions: = init_actions()
 #
