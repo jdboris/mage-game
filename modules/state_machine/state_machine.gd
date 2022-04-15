@@ -6,7 +6,7 @@ signal state_changed(current_state)
 export var start_state: NodePath
 
 var states_stack := []
-var current_state = null
+var current_state: Node = null
 var _active := false setget set_active
 
 # NOTE: After _ready(), this will either point to the Input singleton, 
@@ -98,3 +98,4 @@ func _change_state(state: Node = null, args := {}):
 	# NOTE: This may be useful to allow resuming a State that was interrupted.
 #	if state != null:
 	current_state.enter(args)
+	current_state.emit_signal("entered")

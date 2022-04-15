@@ -13,6 +13,8 @@ export var animation_player: NodePath
 var Input
 
 # warning-ignore:unused_signal
+signal entered()
+# warning-ignore:unused_signal
 signal finished(next_state, args)
 
 
