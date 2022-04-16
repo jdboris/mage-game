@@ -1,9 +1,9 @@
 extends Node
 
-onready var cameraPivot: Spatial = $"../Main/CameraPivot"
-onready var camera: Camera = $"../Main/CameraPivot/Camera"
+onready var cameraPivot: Spatial = $"../Level/CameraPivot"
+onready var camera: Camera = $"../Level/CameraPivot/Camera"
 
-onready var level: = $"../Main"
+onready var level: = $"../Level"
 
 onready var fps_timer: = Timer.new()
 

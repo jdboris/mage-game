@@ -2,9 +2,6 @@ extends "res://modules/ai_input/ai_input.gd"
 
 var target: MobHurtbox
 
-func _ready() -> void:
-	target = (get_node("../../Mage/MobHurtbox") as MobHurtbox) 
-
 func set_target(value: MobHurtbox):
 	target = target if target else value
 

@@ -102,7 +102,7 @@ script = ExtResource( 6 )
 animation_player = NodePath("../../../ModelPivot/Mage/AnimationPlayer")
 cast_animation = "Spell1"
 fireball = ExtResource( 7 )
-damage = 50.0
+damage = 40.0
 
 [node name="MobUi" parent="." instance=ExtResource( 10 )]
 
