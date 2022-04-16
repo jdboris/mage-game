@@ -32,6 +32,14 @@ value = 100.0
 
 [node name="character_skeleton_warrior" parent="ModelPivot" instance=ExtResource( 3 )]
 
+[node name="Skeleton" parent="ModelPivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/KayKit Animated Character" index="0"]
+bones/0/bound_children = [  ]
+bones/1/bound_children = [  ]
+bones/2/bound_children = [  ]
+bones/3/bound_children = [  ]
+bones/4/bound_children = [  ]
+bones/5/bound_children = [  ]
+
 [node name="Head" parent="ModelPivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/KayKit Animated Character/Skeleton" index="0"]
 transform = Transform( 0.999866, 0.00121577, 0.0163309, -0.00107147, 0.99996, -0.00884175, -0.016341, 0.00882306, 0.999828, 0, 0.711598, 0 )
 
