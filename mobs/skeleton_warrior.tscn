@@ -11,8 +11,9 @@
 [ext_resource path="res://modules/mob_hurtbox/mob_hurtbox.tscn" type="PackedScene" id=9]
 [ext_resource path="res://states/combat/attack.gd" type="Script" id=10]
 
-[sub_resource type="BoxShape" id=3]
-extents = Vector3( 0.627, 1, 0.484 )
+[sub_resource type="CapsuleShape" id=5]
+radius = 0.259044
+height = 1.11979
 
 [sub_resource type="SphereShape" id=4]
 radius = 10.0
@@ -33,8 +34,8 @@ value = 100.0
 [node name="character_skeleton_warrior" parent="ModelPivot" instance=ExtResource( 3 )]
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00129247, 1.01194, 0.000229836 )
-shape = SubResource( 3 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.00129247, 0.789311, 0.000229836 )
+shape = SubResource( 5 )
 
 [node name="AggroArea" type="Area" parent="."]
 visible = false

@@ -11,9 +11,9 @@ func cast(args = {"target": Vector3.ZERO}):
 	(get_node(animation_player) as AnimationPlayer).play(cast_animation, -1, 1 / castTime)
 
 	var explosion = fireball.instance() as Area
-	explosion.connect("area_entered", self, "_on_Explosion_1_area_entered")
-	explosion.translation = args.target
+	explosion.connect("area_entered", self, "_on_Explosion1_area_entered")
 	Global.level.add_child(explosion)
+	explosion.global_transform.origin = args.target
 
 	var caster = owner as KinematicBody
 
@@ -28,6 +28,6 @@ func cast(args = {"target": Vector3.ZERO}):
 	)
 
 
-func _on_Explosion_1_area_entered(hurtbox: MobHurtbox):
+func _on_Explosion1_area_entered(hurtbox: MobHurtbox):
 	hurtbox.mob_health.value -= damage
 	hurtbox.ai_input.set_target(owner)

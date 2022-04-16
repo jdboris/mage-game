@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://assets/vfx/beam_1/beam_1.glb" type="PackedScene" id=1]
+
+[node name="Beam1" instance=ExtResource( 1 )]
+transform = Transform( -20, 0, -8.74228e-06, 0, 20, 0, 1.74846e-06, 0, -100, 0, 0, -2.55128 )

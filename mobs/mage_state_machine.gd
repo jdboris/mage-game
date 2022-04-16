@@ -3,26 +3,21 @@ extends "res://modules/state_machine/state_machine.gd"
 export var moving: NodePath
 export var casting: NodePath
 
-enum {
-	FIRE,
-	WATER,
-	AIR,
-	EARTH
+enum { FIRE, WATER, AIR, EARTH }
+
+export var spells := {
+	[FIRE]: NodePath(),  # "Casting/Explosion"
+	[WATER]: NodePath(),  # "Casting/WaterBeam"
+	#	[AIR]: NodePath(),
+	#	[EARTH]: NodePath(),
+	#	[FIRE, FIRE]: NodePath(),
 }
 
-export var spells: = {
-	[FIRE]: NodePath(), # "Cast/Explosion"
-	[WATER]: NodePath(),
-	[AIR]: NodePath(),
-	[EARTH]: NodePath(),
-	[FIRE, FIRE]: NodePath(),
-}
+var rune_stack := []
+var commands := preload("res://modules/command_queue/command_queue.gd").new()
 
-var rune_stack: = []
-var commands: = preload("res://modules/command_queue/command_queue.gd").new()
 
 func _change_state(state: Node = null, args := {}):
-	
 	if not _active:
 		return
 #	if current_state in [$Casting] and not state in [$Idle]:
@@ -45,24 +40,33 @@ func _unhandled_input(event: InputEvent):
 	elif event.is_action_pressed("earth_rune"):
 		rune_stack.push_back(EARTH)
 	elif event.is_action_pressed("cast_at"):
-		var mouse_event := (event as InputEventMouseButton)
+		var mouse_event := event as InputEventMouseButton
 		if rune_stack in spells:
 			var spell = get_node(spells[rune_stack])
-			assert(spell, "Error: spell ('" + spells[rune_stack] + "') with run stack ('" + String(rune_stack) + "') not found in '" + get_path() + "'. Is it plugged in?")
+			assert(
+				spell,
+				(
+					"Error: spell ('"
+					+ spells[rune_stack]
+					+ "') with run stack ('"
+					+ String(rune_stack)
+					+ "') not found in '"
+					+ get_path()
+					+ "'. Is it plugged in?"
+				)
+			)
 			cast_spell(spell, mouse_event.position)
-		
+
 		rune_stack = []
 
+
 func cast_spell(spell, target_pos: Vector2):
-	
-	var command: = commands.new_command()
+	var command := commands.new_command()
 	# NOTE: only yield conditionally, to keep the first command synchronous
-	if command.previous: yield(command.previous, "completed")
-	
-	_change_state(get_node(casting), {
-		"spell": spell, 
-		"target_pos": target_pos
-	})
-	
+	if command.previous:
+		yield(command.previous, "completed")
+
+	_change_state(get_node(casting), {"spell": spell, "target_pos": target_pos})
+
 	yield(get_node(casting), "finished")
 	command.end()
