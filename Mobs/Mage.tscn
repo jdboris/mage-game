@@ -104,10 +104,10 @@ script = ExtResource( 11 )
 animation_player = NodePath("../../../ModelPivot/Mage/AnimationPlayer")
 cast_animation = "Spell1"
 water_beam = ExtResource( 12 )
+damage = 40.0
 
 [node name="MobUi" parent="." instance=ExtResource( 10 )]
 
-[connection signal="value_changed" from="Props/Health" to="MobUi" method="_on_Health_value_changed"]
 [connection signal="animation_finished" from="ModelPivot/Mage/AnimationPlayer" to="StateMachine/Casting" method="_on_AnimationPlayer_animation_finished"]
 
 [editable path="ModelPivot/Mage"]

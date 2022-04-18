@@ -84,6 +84,7 @@ animation_player = NodePath("../../ModelPivot/character_skeleton_warrior/KayKit_
 death_animation = "Defeat"
 
 [node name="MobUi" parent="." instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.06081, 0 )
 
 [connection signal="value_changed" from="Props/Health" to="StateMachine" method="_on_Health_value_changed"]
 [connection signal="value_changed" from="Props/Health" to="MobUi" method="_on_Health_value_changed"]
