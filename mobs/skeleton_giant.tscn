@@ -1,0 +1,155 @@
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://states/motion/idle.gd" type="Script" id=1]
+[ext_resource path="res://mobs/skeleton_warrior_state_machine.gd" type="Script" id=2]
+[ext_resource path="res://models/skeleton_warrior.tscn" type="PackedScene" id=3]
+[ext_resource path="res://states/motion/moving.gd" type="Script" id=4]
+[ext_resource path="res://modules/melee_ai_input.gd" type="Script" id=5]
+[ext_resource path="res://modules/props/float_prop.gd" type="Script" id=6]
+[ext_resource path="res://modules/ui/mob_ui.tscn" type="PackedScene" id=7]
+[ext_resource path="res://states/dead.gd" type="Script" id=8]
+[ext_resource path="res://modules/mob_hurtbox/mob_hurtbox.tscn" type="PackedScene" id=9]
+[ext_resource path="res://states/combat/attack.gd" type="Script" id=10]
+
+[sub_resource type="SpatialMaterial" id=6]
+albedo_color = Color( 0.745098, 0.00392157, 0.00392157, 1 )
+
+[sub_resource type="SpatialMaterial" id=7]
+albedo_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="SpatialMaterial" id=8]
+albedo_color = Color( 0.470588, 0.352941, 0.0431373, 1 )
+
+[sub_resource type="SpatialMaterial" id=9]
+albedo_color = Color( 0.678431, 0.0666667, 0.0666667, 1 )
+
+[sub_resource type="SpatialMaterial" id=10]
+albedo_color = Color( 0.807843, 0.137255, 0.137255, 1 )
+
+[sub_resource type="SpatialMaterial" id=11]
+albedo_color = Color( 0.713726, 0.137255, 0.137255, 1 )
+
+[sub_resource type="SpatialMaterial" id=12]
+albedo_color = Color( 0.713726, 0.105882, 0.105882, 1 )
+
+[sub_resource type="SpatialMaterial" id=13]
+albedo_color = Color( 0.870588, 0.156863, 0.156863, 1 )
+
+[sub_resource type="CapsuleShape" id=5]
+radius = 0.259044
+height = 1.11979
+
+[sub_resource type="SphereShape" id=4]
+radius = 10.0
+
+[node name="SkeletonGiant" type="KinematicBody"]
+transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0 )
+collision_layer = 16
+collision_mask = 28
+
+[node name="Props" type="Node" parent="."]
+
+[node name="Health" type="Node" parent="Props"]
+script = ExtResource( 6 )
+max_value = 400.0
+value = 400.0
+
+[node name="ModelPivot" type="Spatial" parent="."]
+
+[node name="character_skeleton_warrior" parent="ModelPivot" instance=ExtResource( 3 )]
+
+[node name="Skeleton" parent="ModelPivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/KayKit Animated Character" index="0"]
+bones/0/bound_children = [ NodePath("Body") ]
+bones/1/bound_children = [ NodePath("Head") ]
+bones/2/bound_children = [ NodePath("ArmLeft") ]
+bones/3/bound_children = [ NodePath("HandSlotLeft") ]
+bones/4/bound_children = [ NodePath("ArmRight") ]
+bones/5/bound_children = [ NodePath("HandSlotRight") ]
+
+[node name="character_skeleton_warrior_head" parent="ModelPivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/KayKit Animated Character/Skeleton/Head" index="0"]
+material/0 = SubResource( 6 )
+material/1 = SubResource( 7 )
+
+[node name="character_skeleton_warrior_helmet" parent="ModelPivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/KayKit Animated Character/Skeleton/Head/character_skeleton_warrior_head" index="1"]
+material/0 = SubResource( 8 )
+
+[node name="character_skeleton_warrior_jaw" parent="ModelPivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/KayKit Animated Character/Skeleton/Head/character_skeleton_warrior_head" index="2"]
+material/0 = SubResource( 9 )
+
+[node name="character_skeleton_warrior_body" parent="ModelPivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/KayKit Animated Character/Skeleton/Body" index="0"]
+material/2 = SubResource( 10 )
+
+[node name="character_skeleton_warrior_armLeft" parent="ModelPivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/KayKit Animated Character/Skeleton/ArmLeft" index="0"]
+material/1 = SubResource( 11 )
+material/3 = SubResource( 12 )
+
+[node name="character_skeleton_warrior_armRight" parent="ModelPivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/KayKit Animated Character/Skeleton/ArmRight" index="0"]
+material/3 = SubResource( 13 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.00129247, 0.789311, 0.000229836 )
+shape = SubResource( 5 )
+
+[node name="AggroArea" type="Area" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape" type="CollisionShape" parent="AggroArea"]
+shape = SubResource( 4 )
+
+[node name="MobHurtbox" parent="." instance=ExtResource( 9 )]
+_ai_input = NodePath("../MeleeAiInput")
+_state_machine = NodePath("../StateMachine")
+_mob_health = NodePath("../Props/Health")
+
+[node name="MeleeAiInput" type="Node" parent="."]
+script = ExtResource( 5 )
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource( 2 )
+_ai_input = NodePath("../MeleeAiInput")
+dead = NodePath("Dead")
+attack = NodePath("Attack")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource( 1 )
+animation_player = NodePath("../../ModelPivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/AnimationPlayer")
+moving = NodePath("../Moving")
+idle_animation = "Idle"
+
+[node name="Moving" type="Node" parent="StateMachine"]
+script = ExtResource( 4 )
+animation_player = NodePath("../../ModelPivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/AnimationPlayer")
+moving = NodePath(".")
+walk_animation = "Run"
+idle = NodePath("../Idle")
+max_walk_speed = 2
+
+[node name="Attack" type="Node" parent="StateMachine"]
+script = ExtResource( 10 )
+animation_player = NodePath("../../ModelPivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/AnimationPlayer")
+damage = 50
+attack_animation = "Attack(1h)"
+
+[node name="Dead" type="Node" parent="StateMachine"]
+script = ExtResource( 8 )
+animation_player = NodePath("../../ModelPivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/AnimationPlayer")
+death_animation = "Defeat"
+
+[node name="MobUi" parent="." instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.06081, 0 )
+
+[connection signal="value_changed" from="Props/Health" to="StateMachine" method="_on_Health_value_changed"]
+[connection signal="value_changed" from="Props/Health" to="MobUi" method="_on_Health_value_changed"]
+[connection signal="animation_finished" from="ModelPivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/AnimationPlayer" to="StateMachine/Attack" method="_on_AnimationPlayer_animation_finished"]
+[connection signal="body_entered" from="AggroArea" to="MeleeAiInput" method="set_target"]
+[connection signal="input" from="MeleeAiInput" to="StateMachine" method="_unhandled_input"]
+[connection signal="entered" from="StateMachine/Dead" to="CollisionShape" method="set_disabled" binds= [ true ]]
+[connection signal="entered" from="StateMachine/Dead" to="AggroArea" method="set_monitorable" binds= [ false ]]
+[connection signal="entered" from="StateMachine/Dead" to="AggroArea" method="set_monitoring" binds= [ false ]]
+[connection signal="entered" from="StateMachine/Dead" to="MobHurtbox" method="set_monitorable" binds= [ false ]]
+[connection signal="entered" from="StateMachine/Dead" to="MobHurtbox" method="set_monitoring" binds= [ false ]]
+
+[editable path="ModelPivot/character_skeleton_warrior"]
+[editable path="ModelPivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12"]

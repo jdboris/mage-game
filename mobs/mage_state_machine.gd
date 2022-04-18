@@ -9,7 +9,7 @@ export var spells := {
 	[FIRE]: NodePath(),  # "Casting/Explosion"
 	[WATER]: NodePath(),  # "Casting/WaterBeam"
 	#	[AIR]: NodePath(),
-	#	[EARTH]: NodePath(),
+	[EARTH]: NodePath(), # "Casting/Boulder"
 	#	[FIRE, FIRE]: NodePath(),
 }
 

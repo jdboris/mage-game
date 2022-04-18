@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://models/mage.tscn" type="PackedScene" id=1]
 [ext_resource path="res://states/combat/casting.gd" type="Script" id=2]
@@ -12,6 +12,8 @@
 [ext_resource path="res://modules/ui/mob_ui.tscn" type="PackedScene" id=10]
 [ext_resource path="res://spells/water_beam.gd" type="Script" id=11]
 [ext_resource path="res://effects/water_beam_1.tscn" type="PackedScene" id=12]
+[ext_resource path="res://spells/boulder.gd" type="Script" id=13]
+[ext_resource path="res://effects/boulder_1.tscn" type="PackedScene" id=14]
 
 [sub_resource type="BoxShape" id=3]
 extents = Vector3( 0.626815, 1.463, 0.484 )
@@ -33,6 +35,13 @@ value = 100.0
 
 [node name="Mage" parent="ModelPivot" instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+
+[node name="Skeleton" parent="ModelPivot/Mage/CharacterArmature" index="1"]
+bones/4/bound_children = [ NodePath("BoneAttachment5") ]
+bones/7/bound_children = [ NodePath("BoneAttachment") ]
+bones/9/bound_children = [ NodePath("BoneAttachment2") ]
+bones/17/bound_children = [ NodePath("BoneAttachment4") ]
+bones/22/bound_children = [ NodePath("BoneAttachment3") ]
 
 [node name="BoneAttachment" parent="ModelPivot/Mage/CharacterArmature/Skeleton" index="0"]
 transform = Transform( 1, 6.03275e-12, -0.000550203, -6.16703e-05, 0.993699, -0.112086, 0.000546736, 0.112086, 0.993698, -0.000638377, 2.09957, 0.0809259 )
@@ -69,7 +78,7 @@ script = ExtResource( 3 )
 casting = NodePath("Casting")
 spells = {
 [ 3 ]: NodePath(""),
-[ 2 ]: NodePath(""),
+[ 2 ]: NodePath("Casting/Boulder"),
 [ 1 ]: NodePath("Casting/WaterBeam"),
 [ 0 ]: NodePath("Casting/Explosion"),
 [ 0, 0 ]: NodePath("")
@@ -103,12 +112,20 @@ damage = 40.0
 script = ExtResource( 11 )
 animation_player = NodePath("../../../ModelPivot/Mage/AnimationPlayer")
 cast_animation = "Spell1"
-water_beam = ExtResource( 12 )
+water_beam1 = ExtResource( 12 )
 damage = 40.0
+
+[node name="Boulder" type="Node" parent="StateMachine/Casting"]
+script = ExtResource( 13 )
+animation_player = NodePath("../../../ModelPivot/Mage/AnimationPlayer")
+cast_animation = "Spell1"
+boulder1 = ExtResource( 14 )
+damage = 100.0
 
 [node name="MobUi" parent="." instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.25521, 0 )
 
+[connection signal="value_changed" from="Props/Health" to="MobUi" method="_on_Health_value_changed"]
 [connection signal="animation_finished" from="ModelPivot/Mage/AnimationPlayer" to="StateMachine/Casting" method="_on_AnimationPlayer_animation_finished"]
 
 [editable path="ModelPivot/Mage"]

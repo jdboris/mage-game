@@ -4,6 +4,7 @@ var Mage := preload("res://mobs/mage.tscn")
 
 var SkeletonWarriorGroup := preload("res://mob_groups/skeleton_warrior_group.tscn")
 var SkeletonWarriorLine := preload("res://mob_groups/skeleton_warrior_line.tscn")
+var SkeletonGiant := preload("res://mob_groups/skeleton_giant.tscn")
 
 
 func _ready() -> void:
@@ -15,13 +16,13 @@ func _ready() -> void:
 
 
 func spawn_infinitely(mage):
-	var formations = [SkeletonWarriorGroup, SkeletonWarriorLine]
+	var formations = [SkeletonWarriorGroup, SkeletonWarriorLine, SkeletonGiant]
 
-	var count := 20.0
-	var interval := 1.0
+	var count := 99
+	var interval := 5.0
 
 	while count > 0:
-		interval = interval if interval <= 1 else interval - 1
+		interval = interval if interval <= 1 else interval - 0.2
 		count -= 1
 		print("SPAWNING WAVE ", count)
 
