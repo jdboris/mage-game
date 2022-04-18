@@ -24,7 +24,7 @@ func spawn_infinitely(mage):
 	while count > 0:
 		interval = interval if interval <= 1 else interval - 0.2
 		count -= 1
-		print("SPAWNING WAVE ", count)
+		print("WAVES REMAINING ", count)
 
 		var angle := rand_range(0, 359)
 		var distance := 30
