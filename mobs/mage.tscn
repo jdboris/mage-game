@@ -44,19 +44,19 @@ bones/17/bound_children = [ NodePath("BoneAttachment4") ]
 bones/22/bound_children = [ NodePath("BoneAttachment3") ]
 
 [node name="BoneAttachment" parent="ModelPivot/Mage/CharacterArmature/Skeleton" index="0"]
-transform = Transform( 1, 6.03275e-12, -0.000550203, -6.16703e-05, 0.993699, -0.112086, 0.000546736, 0.112086, 0.993698, -0.000638377, 2.09957, 0.0809259 )
+transform = Transform( 1, 5.03101e-12, -0.000550203, -2.16756e-05, 0.999224, -0.0393955, 0.000549776, 0.0393956, 0.999224, -0.000638377, 2.10503, 0.0397175 )
 
 [node name="BoneAttachment2" parent="ModelPivot/Mage/CharacterArmature/Skeleton" index="1"]
-transform = Transform( 0.55461, 0.451439, 0.699007, 0.132647, -0.877264, 0.461317, 0.82147, -0.16313, -0.546421, 0.319536, 1.84333, 0.0430032 )
+transform = Transform( 0.0829644, 0.507123, 0.857871, -0.0572638, -0.856991, 0.512141, 0.994906, -0.0916145, -0.0420599, 0.319536, 1.84671, 0.0205634 )
 
 [node name="BoneAttachment3" parent="ModelPivot/Mage/CharacterArmature/Skeleton" index="2"]
-transform = Transform( -0.0355984, -0.0195176, -0.999175, -0.367273, -0.929589, 0.0312435, -0.929432, 0.368082, 0.0259237, -0.56951, 0.975493, 0.16498 )
+transform = Transform( -0.422387, 0.146379, -0.894518, -0.218499, -0.974215, -0.0562462, -0.879686, 0.171693, 0.44348, -0.498105, 0.959332, 0.0788018 )
 
 [node name="BoneAttachment4" parent="ModelPivot/Mage/CharacterArmature/Skeleton" index="3"]
-transform = Transform( 0.489218, -0.467985, -0.735973, -0.118113, -0.871625, 0.475731, -0.864127, -0.145808, -0.481689, -0.319536, 1.84333, 0.0430032 )
+transform = Transform( 0.0829642, -0.507124, -0.857871, 0.0572638, -0.85699, 0.512141, -0.994906, -0.0916144, -0.0420597, -0.319536, 1.84671, 0.0205634 )
 
 [node name="BoneAttachment5" parent="ModelPivot/Mage/CharacterArmature/Skeleton" index="4"]
-transform = Transform( 1, 2.76401e-11, 1.05598e-06, 2.48259e-07, 0.971966, -0.235124, -1.02638e-06, 0.235125, 0.971965, -0.000638377, 1.22128, -0.0909824 )
+transform = Transform( 1, 2.7697e-11, 1.05598e-06, 2.48259e-07, 0.971966, -0.235124, -1.02638e-06, 0.235124, 0.971965, -0.000638377, 1.22128, -0.0909824 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00129247, 1.57143, 0.000229836 )
@@ -106,26 +106,32 @@ script = ExtResource( 6 )
 animation_player = NodePath("../../../ModelPivot/Mage/AnimationPlayer")
 cast_animation = "Spell1"
 fireball = ExtResource( 7 )
-damage = 40.0
+damage = 50.0
+cast_time = null
+cooldown = 3.0
 
 [node name="WaterBeam" type="Node" parent="StateMachine/Casting"]
 script = ExtResource( 11 )
 animation_player = NodePath("../../../ModelPivot/Mage/AnimationPlayer")
 cast_animation = "Spell1"
 water_beam1 = ExtResource( 12 )
-damage = 40.0
+cooldown = 2.0
 
 [node name="Boulder" type="Node" parent="StateMachine/Casting"]
 script = ExtResource( 13 )
 animation_player = NodePath("../../../ModelPivot/Mage/AnimationPlayer")
 cast_animation = "Spell1"
 boulder1 = ExtResource( 14 )
-damage = 100.0
+damage = 200.0
+cooldown = 2.0
 
 [node name="MobUi" parent="." instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.25521, 0 )
 
 [connection signal="value_changed" from="Props/Health" to="MobUi" method="_on_Health_value_changed"]
 [connection signal="animation_finished" from="ModelPivot/Mage/AnimationPlayer" to="StateMachine/Casting" method="_on_AnimationPlayer_animation_finished"]
+[connection signal="cast_canceled" from="StateMachine/Casting/Explosion" to="StateMachine/Casting" method="cancel_cast"]
+[connection signal="cast_canceled" from="StateMachine/Casting/WaterBeam" to="StateMachine/Casting" method="cancel_cast"]
+[connection signal="cast_canceled" from="StateMachine/Casting/Boulder" to="StateMachine/Casting" method="cancel_cast"]
 
 [editable path="ModelPivot/Mage"]

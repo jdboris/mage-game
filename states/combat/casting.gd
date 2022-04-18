@@ -19,3 +19,7 @@ func enter(args := {"spell": {}, "target_pos": Vector2.ZERO}):
 func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
 	if anim_name == cast_animation:
 		emit_signal("finished", null, {})
+
+
+func cancel_cast() -> void:
+	emit_signal("finished", null, {})

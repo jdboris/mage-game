@@ -113,10 +113,10 @@ func _change_state(state: Node = null, args := {}):
 				+ "'. Is it plugged in?"
 			)
 		)
-
+	
 	current_state = states_stack[0]
 	emit_signal("state_changed", current_state.get_path())
-
+	
 	# NOTE: This may be useful to allow resuming a State that was interrupted.
 #	if state != null:
 	current_state.enter(args)
