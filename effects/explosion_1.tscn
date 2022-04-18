@@ -3,6 +3,7 @@
 [ext_resource path="res://models/vfx/fireball_1.tscn" type="PackedScene" id=1]
 
 [sub_resource type="SphereShape" id=1]
+radius = 1.48455
 
 [sub_resource type="Animation" id=2]
 resource_name = "Explode"
@@ -14,10 +15,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.1, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( 0.1, 0.1, 0.1 ), Vector3( 1.8, 1.8, 1.8 ), Vector3( 2.2, 2.2, 2.2 ), Vector3( 0.1, 0.1, 0.1 ) ]
+"values": [ Vector3( 0.1, 0.1, 0.1 ), Vector3( 3, 3, 3 ), Vector3( 0.1, 0.1, 0.1 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Fireball1:rotation_degrees")
@@ -79,7 +80,7 @@ collision_mask = 0
 monitorable = false
 
 [node name="Fireball1" parent="." instance=ExtResource( 1 )]
-transform = Transform( -0.1, 0, -8.74228e-09, 0, 0.1, 0, 8.74228e-09, 0, -0.1, 0.145792, -0.626411, 0 )
+transform = Transform( 1.5, 0, 2.59808, 0, 3, 0, -2.59808, 0, 1.5, 0.145792, -1.61004, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0 )
