@@ -65,8 +65,11 @@ func cast_spell(spell, target_pos: Vector2):
 	# NOTE: only yield conditionally, to keep the first command synchronous
 	if command.previous:
 		yield(command.previous, "completed")
-
+	
 	_change_state(get_node(casting), {"spell": spell, "target_pos": target_pos})
-
-	yield(get_node(casting), "finished")
+	
+	# NOTE: It's possible that the state has already changed again (in the enter() method)
+	if current_state == get_node(casting):
+		yield(get_node(casting), "finished")
+	
 	command.end()
