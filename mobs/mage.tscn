@@ -107,7 +107,6 @@ animation_player = NodePath("../../../ModelPivot/Mage/AnimationPlayer")
 cast_animation = "Spell1"
 fireball = ExtResource( 7 )
 damage = 50.0
-cast_time = null
 cooldown = 3.0
 
 [node name="WaterBeam" type="Node" parent="StateMachine/Casting"]

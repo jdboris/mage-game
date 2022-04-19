@@ -1,28 +1,25 @@
 extends Node
 
-var Mage := preload("res://mobs/mage.tscn")
-
-var SkeletonWarriorGroup := preload("res://mob_groups/skeleton_warrior_group.tscn")
-var SkeletonWarriorLine := preload("res://mob_groups/skeleton_warrior_line.tscn")
-var SkeletonGiant := preload("res://mob_groups/skeleton_giant.tscn")
-
-
 func _ready() -> void:
 	randomize()
 
-	var mage := Mage.instance()
+	var mage := preload("res://mobs/mage.tscn").instance()
 	add_child(mage)
 	spawn_infinitely(mage)
 
 
 func spawn_infinitely(mage):
-	var formations = [SkeletonWarriorGroup, SkeletonWarriorLine, SkeletonGiant]
+	var formations = [
+		preload("res://mob_groups/skeleton_warrior_group.tscn"), 
+		preload("res://mob_groups/skeleton_warrior_line.tscn"), 
+		preload("res://mob_groups/skeleton_giant.tscn")
+	]
 
 	var count := 99
 	var interval := 5.0
 
 	while count > 0:
-		interval = interval if interval <= 1 else interval - 0.2
+		interval = interval if interval <= 2.2 else interval - 0.1
 		count -= 1
 		print("WAVES REMAINING ", count)
 
