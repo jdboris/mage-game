@@ -105,32 +105,29 @@ animation_player = NodePath("../../ModelPivot/Mage/AnimationPlayer")
 script = ExtResource( 6 )
 animation_player = NodePath("../../../ModelPivot/Mage/AnimationPlayer")
 cast_animation = "Spell1"
-fireball = ExtResource( 7 )
 damage = 50.0
 cooldown = 3.0
+fireball = ExtResource( 7 )
 
 [node name="WaterBeam" type="Node" parent="StateMachine/Casting"]
 script = ExtResource( 11 )
 animation_player = NodePath("../../../ModelPivot/Mage/AnimationPlayer")
 cast_animation = "Spell1"
-water_beam1 = ExtResource( 12 )
 cooldown = 2.0
+water_beam1 = ExtResource( 12 )
 
 [node name="Boulder" type="Node" parent="StateMachine/Casting"]
 script = ExtResource( 13 )
 animation_player = NodePath("../../../ModelPivot/Mage/AnimationPlayer")
 cast_animation = "Spell1"
-boulder1 = ExtResource( 14 )
 damage = 200.0
 cooldown = 2.0
+boulder1 = ExtResource( 14 )
 
 [node name="MobUi" parent="." instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.25521, 0 )
 
 [connection signal="value_changed" from="Props/Health" to="MobUi" method="_on_Health_value_changed"]
 [connection signal="animation_finished" from="ModelPivot/Mage/AnimationPlayer" to="StateMachine/Casting" method="_on_AnimationPlayer_animation_finished"]
-[connection signal="cast_canceled" from="StateMachine/Casting/Explosion" to="StateMachine/Casting" method="cancel_cast"]
-[connection signal="cast_canceled" from="StateMachine/Casting/WaterBeam" to="StateMachine/Casting" method="cancel_cast"]
-[connection signal="cast_canceled" from="StateMachine/Casting/Boulder" to="StateMachine/Casting" method="cancel_cast"]
 
 [editable path="ModelPivot/Mage"]
