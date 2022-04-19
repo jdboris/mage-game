@@ -1,44 +1,59 @@
 extends Node
 
+var mage
+var wave_count := 0
+var wave_interval := 5.0
+var wave_limit := 99
+
 func _ready() -> void:
 	randomize()
 
-	var mage := preload("res://mobs/mage.tscn").instance()
-	add_child(mage)
-	spawn_infinitely(mage)
+
+func start_level() -> void:
+	for mob in $Mobs.get_children():
+		mob.queue_free()
+	
+	mage = preload("res://mobs/mage.tscn").instance()
+	$Mobs.add_child(mage)
+	mage.get_node("Props/Health").connect("value_changed", self, "end_level")
+	
+	$SpawnTimer.start(wave_interval)
 
 
-func spawn_infinitely(mage):
+func end_level(old_value, prop):
+	if prop.value <= 0:
+		Global.pause_scene($Mobs, true)
+		$MainMenu.show()
+		$SpawnTimer.stop()
+
+
+func spawn_wave():
+	$SpawnTimer.wait_time = $SpawnTimer.wait_time if $SpawnTimer.wait_time <= 2.2 else $SpawnTimer.wait_time - 0.1
+	wave_count += 1
+	
+	if wave_count > wave_limit:
+		$SpawnTimer.stop()
+		return
+	
 	var formations = [
 		preload("res://mob_groups/skeleton_warrior_group.tscn"), 
 		preload("res://mob_groups/skeleton_warrior_line.tscn"), 
 		preload("res://mob_groups/skeleton_giant.tscn")
 	]
+	
+	var angle := rand_range(0, 359)
+	var distance := 27
 
-	var count := 99
-	var interval := 5.0
+	var direction := Vector3.FORWARD.rotated(Vector3.UP, deg2rad(angle))
+	var spawn_point := direction * distance
 
-	while count > 0:
-		interval = interval if interval <= 2.2 else interval - 0.1
-		count -= 1
-		print("WAVES REMAINING: ", count)
+	var formation = formations[randi() % formations.size()].instance()
+	$Mobs.add_child(formation)
+	formation.global_translate(spawn_point)
+	formation.look_at(Vector3(0, 0, 0), Vector3.UP)
 
-		var angle := rand_range(0, 359)
-		var distance := 30
+	# Initial aggro
+	for mob in formation.get_children():
+		mob.get_node("MeleeAiInput").target = mage.get_node("MobHurtbox")
 
-		var direction := Vector3.FORWARD.rotated(Vector3.UP, deg2rad(angle))
-		var spawn_point := direction * distance
 
-		var formation = instance_formation(formations[randi() % formations.size()])
-		add_child(formation)
-		formation.global_translate(spawn_point)
-		formation.look_at(Vector3(0, 0, 0), Vector3.UP)
-
-		# Initial aggro
-		for mob in formation.get_children():
-			mob.get_node("MeleeAiInput").target = mage.get_node("MobHurtbox")
-
-		yield(get_tree().create_timer(interval), "timeout")
-
-func instance_formation(formation):
-	return formation.instance()

@@ -36,3 +36,16 @@ func init_object(target: Object, source: Dictionary):
 		target[key] = source[key]
 	return target
 
+func pause_node(node, freeze):
+	node.set_process(!freeze)
+	node.set_process_internal(!freeze)
+	node.set_physics_process(!freeze)
+	node.set_physics_process_internal(!freeze)
+	node.set_process_input(!freeze)
+	node.set_process_unhandled_input(!freeze)
+	node.set_process_unhandled_key_input(!freeze)
+
+func pause_scene(node, freeze):
+	pause_node(node, freeze)
+	for c in node.get_children():
+		pause_scene(c, freeze)

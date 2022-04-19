@@ -58,14 +58,6 @@ value = 400.0
 
 [node name="character_skeleton_warrior" parent="ModelPivot" instance=ExtResource( 3 )]
 
-[node name="Skeleton" parent="ModelPivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/KayKit Animated Character" index="0"]
-bones/0/bound_children = [ NodePath("Body") ]
-bones/1/bound_children = [ NodePath("Head") ]
-bones/2/bound_children = [ NodePath("ArmLeft") ]
-bones/3/bound_children = [ NodePath("HandSlotLeft") ]
-bones/4/bound_children = [ NodePath("ArmRight") ]
-bones/5/bound_children = [ NodePath("HandSlotRight") ]
-
 [node name="character_skeleton_warrior_head" parent="ModelPivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/KayKit Animated Character/Skeleton/Head" index="0"]
 material/0 = SubResource( 6 )
 material/1 = SubResource( 7 )
@@ -85,6 +77,12 @@ material/3 = SubResource( 12 )
 
 [node name="character_skeleton_warrior_armRight" parent="ModelPivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/KayKit Animated Character/Skeleton/ArmRight" index="0"]
 material/3 = SubResource( 13 )
+
+[node name="HandSlotLeft" parent="ModelPivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/KayKit Animated Character/Skeleton" index="4"]
+transform = Transform( -1, 2.92556e-08, 0, 0, 1.04171e-07, 1, -1.04757e-07, 1, -7.80337e-08, 0.4, 0.205887, -1.3956e-07 )
+
+[node name="HandSlotRight" parent="ModelPivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/KayKit Animated Character/Skeleton" index="5"]
+transform = Transform( -1, 1.0808e-07, 0, 0, -1.76167e-07, 1, 3.87132e-10, 1, 2.23518e-07, -0.4, 0.205887, 1.2314e-07 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.00129247, 0.789311, 0.000229836 )
