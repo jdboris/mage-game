@@ -56,11 +56,14 @@ func _unhandled_input(event: InputEvent):
 				)
 			)
 			cast_spell(spell, mouse_event.position)
-
+		
 		rune_stack = []
 
 
 func cast_spell(spell, target_pos: Vector2):
+	if current_state == get_node(casting):
+		return false
+	
 	var command := commands.new_command()
 	# NOTE: only yield conditionally, to keep the first command synchronous
 	if command.previous:

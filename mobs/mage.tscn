@@ -37,6 +37,13 @@ value = 100.0
 [node name="Mage" parent="ModelPivot" instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 
+[node name="Skeleton" parent="ModelPivot/Mage/CharacterArmature" index="1"]
+bones/4/bound_children = [ NodePath("BoneAttachment5") ]
+bones/7/bound_children = [ NodePath("BoneAttachment") ]
+bones/9/bound_children = [ NodePath("BoneAttachment2") ]
+bones/17/bound_children = [ NodePath("BoneAttachment4") ]
+bones/22/bound_children = [ NodePath("BoneAttachment3") ]
+
 [node name="BoneAttachment" parent="ModelPivot/Mage/CharacterArmature/Skeleton" index="0"]
 transform = Transform( 1, 5.03101e-12, -0.000550203, -2.16756e-05, 0.999224, -0.0393955, 0.000549776, 0.0393956, 0.999224, -0.000638377, 2.10503, 0.0397175 )
 
