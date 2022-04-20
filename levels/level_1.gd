@@ -5,6 +5,7 @@ var wave_count := 0
 var wave_interval := 5.0
 
 var wave_limit := 99
+var wave_goal := 35
 var is_playing := false
 
 func _ready() -> void:
@@ -21,7 +22,8 @@ func start_level() -> void:
 		mob.queue_free()
 	
 	$Hud/WaveLabel.text = ""
-	$Hud/AlertLabel.text = "Survive for 35+ waves to win..."
+	$Hud/AlertLabel.text = "Survive " + str(wave_goal) + "+ waves to win..."
+	$Hud/AlertLabel.add_color_override("font_color", Color("931818"))
 	$Hud/AlertLabel.show()
 	var timer := get_tree().create_timer(5)
 	timer.connect("timeout", self, "clear_alert")
@@ -44,7 +46,9 @@ func clear_alert():
 func end_level(old_value, prop):
 	if prop.value <= 0:
 		is_playing = false
-		$Hud/AlertLabel.text = "Game Over\nScore: " + str(wave_count)
+		$Hud/AlertLabel.text = "You Win!\n" if wave_count >= wave_goal else "Game Over\n"
+		$Hud/AlertLabel.text += "Score: " + str(wave_count)
+		$Hud/AlertLabel.add_color_override("font_color", Color("00FF00") if wave_count >= wave_goal else Color("931818"))
 		$Hud/AlertLabel.show()
 		Global.pause_scene($Mobs, true)
 		$MainMenu.show()
