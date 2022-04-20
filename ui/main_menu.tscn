@@ -10,7 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = 0.0639992
 margin_bottom = -0.200001
-color = Color( 0, 0, 0, 0.12549 )
+color = Color( 0, 0, 0, 0.258824 )
 
 [node name="StartButton" type="Button" parent="."]
 anchor_left = 0.5

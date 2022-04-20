@@ -13,18 +13,30 @@ func start_level() -> void:
 	for mob in $Mobs.get_children():
 		mob.queue_free()
 	
+	$Hud/WaveLabel.text = ""
+	$Hud/AlertLabel.text = ""
+	$Hud/AlertLabel.hide()
+	wave_count = 0
+	wave_interval = 5
+	
 	mage = preload("res://mobs/mage.tscn").instance()
 	$Mobs.add_child(mage)
 	mage.get_node("Props/Health").connect("value_changed", self, "end_level")
+	
+	$UnitHud.mob = mage
+	$UnitHud/UpdateTimer.start()
 	
 	$SpawnTimer.start(wave_interval)
 
 
 func end_level(old_value, prop):
 	if prop.value <= 0:
+		$Hud/AlertLabel.text = "Game Over\nScore: " + str(wave_count)
+		$Hud/AlertLabel.show()
 		Global.pause_scene($Mobs, true)
 		$MainMenu.show()
 		$SpawnTimer.stop()
+		$UnitHud/UpdateTimer.stop()
 
 
 func spawn_wave():
@@ -34,6 +46,8 @@ func spawn_wave():
 	if wave_count > wave_limit:
 		$SpawnTimer.stop()
 		return
+		
+	$Hud/WaveLabel.text = "Wave: " + str(wave_count)
 	
 	var formations = [
 		preload("res://mob_groups/skeleton_warrior_group.tscn"), 

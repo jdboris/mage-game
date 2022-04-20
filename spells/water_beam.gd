@@ -1,5 +1,6 @@
 extends Node
 
+export var icon: Texture
 export var animation_player: NodePath
 export var cast_animation: String
 export var damage: float = 50
