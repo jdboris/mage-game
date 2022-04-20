@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://states/motion/idle.gd" type="Script" id=1]
 [ext_resource path="res://mobs/skeleton_warrior_state_machine.gd" type="Script" id=2]
@@ -10,6 +10,12 @@
 [ext_resource path="res://states/dead.gd" type="Script" id=8]
 [ext_resource path="res://modules/mob_hurtbox/mob_hurtbox.tscn" type="PackedScene" id=9]
 [ext_resource path="res://states/combat/attack.gd" type="Script" id=10]
+[ext_resource path="res://assets/sfx/death_1.wav" type="AudioStream" id=11]
+[ext_resource path="res://modules/audio/random_audio_looper.gd" type="Script" id=12]
+[ext_resource path="res://assets/sfx/growl_4.mp3" type="AudioStream" id=13]
+[ext_resource path="res://assets/sfx/growl_1.wav" type="AudioStream" id=14]
+[ext_resource path="res://assets/sfx/growl_2.wav" type="AudioStream" id=15]
+[ext_resource path="res://assets/sfx/growl_3.wav" type="AudioStream" id=16]
 
 [sub_resource type="SpatialMaterial" id=6]
 albedo_color = Color( 0.745098, 0.00392157, 0.00392157, 1 )
@@ -104,11 +110,19 @@ _mob_health = NodePath("../Props/Health")
 [node name="MeleeAiInput" type="Node" parent="."]
 script = ExtResource( 5 )
 
+[node name="RandomAudioLooper" type="AudioStreamPlayer" parent="."]
+volume_db = -4.0
+script = ExtResource( 12 )
+audio_streams = [ ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 13 ) ]
+min_interval = 1
+max_interval = 30
+
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 2 )
 _ai_input = NodePath("../MeleeAiInput")
 dead = NodePath("Dead")
 attack = NodePath("Attack")
+audio_looper = NodePath("../RandomAudioLooper")
 
 [node name="Idle" type="Node" parent="StateMachine"]
 script = ExtResource( 1 )
@@ -134,6 +148,7 @@ attack_animation = "Attack(1h)"
 script = ExtResource( 8 )
 animation_player = NodePath("../../ModelPivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12/AnimationPlayer")
 death_animation = "Defeat"
+death_sound = ExtResource( 11 )
 
 [node name="MobUi" parent="." instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.06081, 0 )
@@ -144,10 +159,10 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.06081, 0 )
 [connection signal="body_entered" from="AggroArea" to="MeleeAiInput" method="set_target"]
 [connection signal="input" from="MeleeAiInput" to="StateMachine" method="_unhandled_input"]
 [connection signal="entered" from="StateMachine/Dead" to="CollisionShape" method="set_disabled" binds= [ true ]]
-[connection signal="entered" from="StateMachine/Dead" to="AggroArea" method="set_monitorable" binds= [ false ]]
 [connection signal="entered" from="StateMachine/Dead" to="AggroArea" method="set_monitoring" binds= [ false ]]
-[connection signal="entered" from="StateMachine/Dead" to="MobHurtbox" method="set_monitorable" binds= [ false ]]
+[connection signal="entered" from="StateMachine/Dead" to="AggroArea" method="set_monitorable" binds= [ false ]]
 [connection signal="entered" from="StateMachine/Dead" to="MobHurtbox" method="set_monitoring" binds= [ false ]]
+[connection signal="entered" from="StateMachine/Dead" to="MobHurtbox" method="set_monitorable" binds= [ false ]]
 
 [editable path="ModelPivot/character_skeleton_warrior"]
 [editable path="ModelPivot/character_skeleton_warrior/KayKit_AnimatedCharacter_v12"]

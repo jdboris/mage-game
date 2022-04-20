@@ -3,21 +3,30 @@ extends Node
 var mage
 var wave_count := 0
 var wave_interval := 5.0
+
 var wave_limit := 99
+var is_playing := false
 
 func _ready() -> void:
 	randomize()
 
 
 func start_level() -> void:
+	is_playing = true
+	$MusicPlayer.stream.loop = false
+	$MusicPlayer.play(1)
+	$RoarPlayer.play()
+	
 	for mob in $Mobs.get_children():
 		mob.queue_free()
 	
 	$Hud/WaveLabel.text = ""
-	$Hud/AlertLabel.text = ""
-	$Hud/AlertLabel.hide()
+	$Hud/AlertLabel.text = "Survive for 35+ waves to win..."
+	$Hud/AlertLabel.show()
+	var timer := get_tree().create_timer(5)
+	timer.connect("timeout", self, "clear_alert")
+	
 	wave_count = 0
-	wave_interval = 5
 	
 	mage = preload("res://mobs/mage.tscn").instance()
 	$Mobs.add_child(mage)
@@ -28,15 +37,20 @@ func start_level() -> void:
 	
 	$SpawnTimer.start(wave_interval)
 
+func clear_alert():
+	$Hud/AlertLabel.text = ""
+	$Hud/AlertLabel.hide()
 
 func end_level(old_value, prop):
 	if prop.value <= 0:
+		is_playing = false
 		$Hud/AlertLabel.text = "Game Over\nScore: " + str(wave_count)
 		$Hud/AlertLabel.show()
 		Global.pause_scene($Mobs, true)
 		$MainMenu.show()
 		$SpawnTimer.stop()
 		$UnitHud/UpdateTimer.stop()
+		$MusicPlayer.seek(118)
 
 
 func spawn_wave():
@@ -70,4 +84,6 @@ func spawn_wave():
 	for mob in formation.get_children():
 		mob.get_node("MeleeAiInput").target = mage.get_node("MobHurtbox")
 
-
+func _process(delta: float) -> void:
+	if is_playing and $MusicPlayer.get_playback_position() >= 118:
+		$MusicPlayer.seek(20.4)

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/growl_4.mp3-5377ed612ea028d7c90aef8405552304.mp3str"
+
+[deps]
+
+source_file="res://assets/sfx/growl_4.mp3"
+dest_files=[ "res://.import/growl_4.mp3-5377ed612ea028d7c90aef8405552304.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

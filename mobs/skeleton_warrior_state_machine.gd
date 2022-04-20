@@ -4,14 +4,15 @@ var target: KinematicBody
 
 export var dead: NodePath
 export var attack: NodePath
+export var audio_looper: NodePath
 
 func _change_state(state: Node = null, args := {}):
 	if not _active:
 		return
-	# if state in [$Stagger, $Jump, $Attack]:
-	# 	states_stack.push_front(state)
-	# if state == $Jump.get_path() and current_state == $Move:
-	# 	$Jump.initialize($Move.speed, $Move.velocity)
+	if state in [get_node(dead)]:
+		get_node(audio_looper).stream_paused = true
+	elif !get_node(audio_looper).is_playing():
+		get_node(audio_looper).stream_paused = false
 	._change_state(state, args)
 
 

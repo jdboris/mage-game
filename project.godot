@@ -52,7 +52,8 @@ _global_script_class_icons={
 
 config/name="mage-game"
 run/main_scene="res://levels/level_1.tscn"
-config/icon="res://icon.png"
+config/icon="res://game-icon-original.png"
+config/windows_native_icon="res://assets/game_icon.ico"
 
 [autoload]
 
