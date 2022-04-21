@@ -2,7 +2,7 @@ extends "res://modules/state_machine/state_machine.gd"
 
 export var moving: NodePath
 export var casting: NodePath
-export var casting_cursor: NodePath
+var casting_cursor := preload("res://ui/casting_cursor.tscn")
 
 enum { FIRE, WATER, AIR, EARTH }
 
@@ -58,14 +58,17 @@ func _unhandled_input(event: InputEvent):
 			)
 			cast_spell(spell, mouse_event.position)
 		
-		get_node(casting_cursor).visible = false
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		# TODO: Do this right
+#		if MouseCursor.cursor is casting_cursor:
+		if MouseCursor.cursor:
+			MouseCursor.set_mouse_cursor(null)
 		rune_stack = []
 	
 	if rune_stack.size():
-		if not get_node(casting_cursor).visible:
-			get_node(casting_cursor).visible = true
-			Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+		# TODO: Do this right
+#		if MouseCursor.cursor is casting_cursor:
+		if not MouseCursor.cursor:
+			MouseCursor.set_mouse_cursor(casting_cursor)
 
 
 func cast_spell(spell, target_pos: Vector2):

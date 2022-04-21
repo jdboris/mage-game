@@ -59,6 +59,7 @@ config/windows_native_icon="res://assets/game_icon.ico"
 
 Global="*res://autoload/global.gd"
 CollisionLayers="*res://modules/collision_layers.gd"
+MouseCursor="*res://modules/mouse_cursor.gd"
 
 [global]
 
