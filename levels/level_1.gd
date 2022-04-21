@@ -8,6 +8,7 @@ var wave_limit := 99
 var wave_goal := 35
 var is_playing := false
 
+
 func _ready() -> void:
 	randomize()
 
@@ -87,6 +88,7 @@ func spawn_wave():
 	# Initial aggro
 	for mob in formation.get_children():
 		mob.get_node("MeleeAiInput").target = mage.get_node("MobHurtbox")
+
 
 func _process(delta: float) -> void:
 	if is_playing and $MusicPlayer.get_playback_position() >= 118:

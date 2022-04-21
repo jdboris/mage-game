@@ -2,7 +2,6 @@ extends "res://modules/state_machine/state.gd"
 
 var cast_animation: String
 
-
 func _ready() -> void:
 	is_reversible = true
 

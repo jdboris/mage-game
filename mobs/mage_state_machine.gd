@@ -2,6 +2,7 @@ extends "res://modules/state_machine/state_machine.gd"
 
 export var moving: NodePath
 export var casting: NodePath
+export var casting_cursor: NodePath
 
 enum { FIRE, WATER, AIR, EARTH }
 
@@ -57,7 +58,14 @@ func _unhandled_input(event: InputEvent):
 			)
 			cast_spell(spell, mouse_event.position)
 		
+		get_node(casting_cursor).visible = false
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		rune_stack = []
+	
+	if rune_stack.size():
+		if not get_node(casting_cursor).visible:
+			get_node(casting_cursor).visible = true
+			Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 
 
 func cast_spell(spell, target_pos: Vector2):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://models/mage.tscn" type="PackedScene" id=1]
 [ext_resource path="res://states/combat/casting.gd" type="Script" id=2]
@@ -21,6 +21,7 @@
 [ext_resource path="res://assets/sfx/explosion_1.wav" type="AudioStream" id=19]
 [ext_resource path="res://assets/sfx/spell_cast_3.wav" type="AudioStream" id=20]
 [ext_resource path="res://assets/sfx/impact_2.wav" type="AudioStream" id=21]
+[ext_resource path="res://ui/casting_cursor_sprite.tscn" type="PackedScene" id=22]
 
 [sub_resource type="BoxShape" id=3]
 extents = Vector3( 0.626815, 1.463, 0.484 )
@@ -77,6 +78,7 @@ shape = SubResource( 4 )
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 3 )
 casting = NodePath("Casting")
+casting_cursor = NodePath("../CastingCursor")
 spells = {
 [ 2 ]: NodePath("Casting/Boulder"),
 [ 1 ]: NodePath("Casting/WaterBeam"),
@@ -133,6 +135,9 @@ impact_sound = ExtResource( 18 )
 
 [node name="MobUi" parent="." instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.25521, 0 )
+
+[node name="CastingCursor" parent="." instance=ExtResource( 22 )]
+visible = false
 
 [connection signal="value_changed" from="Props/Health" to="MobUi" method="_on_Health_value_changed"]
 [connection signal="animation_finished" from="ModelPivot/Mage/AnimationPlayer" to="StateMachine/Casting" method="_on_AnimationPlayer_animation_finished"]
