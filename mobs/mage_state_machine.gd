@@ -69,10 +69,24 @@ func _unhandled_input(event: InputEvent):
 
 
 func cast_spell(spell, target_pos: Vector2):
-	if current_state == get_node(casting):
+	
+	if commands.queue.size() > 1:
 		return false
 	
+	var cast_time_left = current_state.time_left if current_state == get_node(casting) else 0
+	
+	if cast_time_left or spell.cooldown_timer.time_left:
+		if cast_time_left > 0.5 or spell.cooldown_timer.time_left > 0.5:
+			return false
+		
+		if cast_time_left > spell.cooldown_timer.time_left:
+			yield(current_state, "finished")
+		else:
+			yield(spell.cooldown_timer, "timeout")
+	
+	
 	var command := commands.new_command()
+	
 	# NOTE: only yield conditionally, to keep the first command synchronous
 	if command.previous:
 		yield(command.previous, "completed")
