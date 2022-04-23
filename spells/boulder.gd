@@ -3,7 +3,7 @@ extends Node
 export var icon: Texture
 export var cast_sound: AudioStream
 var _cast_sound_player := AudioStreamPlayer.new()
-export var animation_player: NodePath
+export(NodePath) onready var animation_player = get_node(animation_player) as AnimationPlayer
 export var cast_animation: String
 export var damage: float = 50
 export var cast_time: float = 0.4
@@ -14,30 +14,31 @@ export var boulder1: PackedScene
 export var impact_sound: AudioStream
 var _impact_sound_player := AudioStreamPlayer.new()
 
+
 func _ready() -> void:
 	cooldown_timer.one_shot = true
 	add_child(cooldown_timer)
-	
+
 	add_child(_cast_sound_player)
 	_cast_sound_player.stream = cast_sound.duplicate()
 	_cast_sound_player.pitch_scale = 2.5
-	
+
 	add_child(_impact_sound_player)
 	_impact_sound_player.stream = impact_sound.duplicate()
 	_impact_sound_player.pitch_scale = 2
+
 
 func cast(args = {"target": Vector3.ZERO}):
 	if cooldown_timer.time_left > 0:
 		print("cooldown_timer.time_left: ", cooldown_timer.time_left)
 		return false
-	
+
 	_cast_sound_player.play()
 	cooldown_timer.start(cooldown)
-	
-	var player := (get_node(animation_player) as AnimationPlayer)
-	player.play(cast_animation)
-	player.playback_speed = player.current_animation_length / cast_time
-	
+
+	animation_player.play(cast_animation)
+	animation_player.playback_speed = animation_player.current_animation_length / cast_time
+
 	var caster: KinematicBody = owner
 	var boulder: Area = boulder1.instance()
 	boulder.connect("area_entered", self, "_on_Boulder1_area_entered", [boulder])

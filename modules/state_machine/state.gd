@@ -5,15 +5,15 @@ extends Node
 # and makes sure every State object has all of these methods.
 
 # Whether or not it will be placed on the state stack to be "reversed" (return to previous)
-var is_reversible: = false
-export var animation_player: NodePath
+var is_reversible := false
+export(NodePath) onready var animation_player = get_node(animation_player) as AnimationPlayer
 
 # NOTE: The parent node (StateMachine) is responsible for this property.
 #       Its value will either be the Input singleton, or an AI input node.
 var Input
 
 # warning-ignore:unused_signal
-signal entered()
+signal entered
 # warning-ignore:unused_signal
 signal finished(next_state, args)
 

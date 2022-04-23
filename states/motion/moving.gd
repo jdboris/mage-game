@@ -2,7 +2,7 @@ extends "on_ground.gd"
 
 export var walk_animation: String
 
-export var idle: NodePath
+export(NodePath) onready var idle = get_node(idle) as Node
 
 export var max_walk_speed := 4
 export var max_run_speed := 8
@@ -18,16 +18,16 @@ func enter(args := {"target_pos": Vector3.ZERO}):
 	var direction = owner.global_transform.origin.direction_to(target_pos)
 	update_look_direction(direction)
 	assert(
-		get_node(animation_player),
+		animation_player,
 		(
 			"Error: AnimationPlayer ('"
-			+ animation_player
+			+ animation_player.get_path()
 			+ "') not found in '"
 			+ get_path()
 			+ "'. Is it plugged in?"
 		)
 	)
-	get_node(animation_player).play(walk_animation)
+	animation_player.play(walk_animation)
 
 
 func handle_input(event: InputEvent):
@@ -36,11 +36,11 @@ func handle_input(event: InputEvent):
 
 func update(_delta):
 	if (owner as KinematicBody).global_transform.origin.distance_to(target_pos) <= stop_threshold:
-		emit_signal("finished", get_node(idle), {})
+		emit_signal("finished", idle, {})
 
 	var direction = owner.global_transform.origin.direction_to(target_pos)
 	if not direction:
-		emit_signal("finished", get_node(idle), {})
+		emit_signal("finished", idle, {})
 	update_look_direction(direction)
 
 	speed = max_walk_speed

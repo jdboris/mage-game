@@ -59,8 +59,8 @@ shape = SubResource( 4 )
 
 [node name="MobHurtbox" parent="." instance=ExtResource( 9 )]
 _ai_input = NodePath("../MeleeAiInput")
-_state_machine = NodePath("../StateMachine")
-_mob_health = NodePath("../Props/Health")
+state_machine = NodePath("../StateMachine")
+mob_health = NodePath("../Props/Health")
 
 [node name="MeleeAiInput" type="Node" parent="."]
 script = ExtResource( 5 )
@@ -74,6 +74,7 @@ max_interval = 30
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 2 )
+start_state = NodePath("Idle")
 _ai_input = NodePath("../MeleeAiInput")
 dead = NodePath("Dead")
 attack = NodePath("Attack")

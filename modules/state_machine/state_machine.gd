@@ -3,7 +3,7 @@ class_name StateMachine
 
 signal state_changed(current_state)
 
-export var start_state: NodePath
+export(NodePath) onready var start_state = get_node(start_state) as Node
 
 var states_stack := []
 var current_state: Node = null
@@ -36,8 +36,6 @@ func _ready():
 
 	assert(get_children().size(), "Error: StateMachine ('" + get_path() + "') with no States.")
 
-	if not start_state:
-		start_state = get_child(0).get_path()
 	for child in get_children():
 		var err = child.connect("finished", self, "_change_state")
 		if err:
@@ -45,9 +43,9 @@ func _ready():
 	initialize(start_state)
 
 
-func initialize(initial_state_path: NodePath):
+func initialize(initial_state: Node):
 	set_active(true)
-	states_stack.push_front(get_node(initial_state_path))
+	states_stack.push_front(initial_state)
 	current_state = states_stack[0]
 	current_state.enter({})
 
@@ -113,10 +111,10 @@ func _change_state(state: Node = null, args := {}):
 				+ "'. Is it plugged in?"
 			)
 		)
-	
+
 	current_state = states_stack[0]
 	emit_signal("state_changed", current_state.get_path())
-	
+
 	# NOTE: This may be useful to allow resuming a State that was interrupted.
 #	if state != null:
 	current_state.enter(args)

@@ -3,6 +3,7 @@ extends "res://modules/state_machine/state.gd"
 var cast_animation: String
 var time_left: float setget , _get_time_left
 
+
 func _ready() -> void:
 	is_reversible = true
 
@@ -21,6 +22,6 @@ func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
 	if anim_name == cast_animation:
 		emit_signal("finished", null, {})
 
+
 func _get_time_left():
-	var player := (get_node(animation_player) as AnimationPlayer)
-	return player.current_animation_length - player.current_animation_position
+	return animation_player.current_animation_length - animation_player.current_animation_position

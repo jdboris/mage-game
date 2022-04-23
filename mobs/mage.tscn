@@ -44,6 +44,13 @@ value = 100.0
 [node name="Mage" parent="ModelPivot" instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 
+[node name="Skeleton" parent="ModelPivot/Mage/CharacterArmature" index="1"]
+bones/4/bound_children = [ NodePath("BoneAttachment5") ]
+bones/7/bound_children = [ NodePath("BoneAttachment") ]
+bones/9/bound_children = [ NodePath("BoneAttachment2") ]
+bones/17/bound_children = [ NodePath("BoneAttachment4") ]
+bones/22/bound_children = [ NodePath("BoneAttachment3") ]
+
 [node name="BoneAttachment" parent="ModelPivot/Mage/CharacterArmature/Skeleton" index="0"]
 transform = Transform( 1, 6.03275e-12, -0.000550203, -6.16703e-05, 0.993699, -0.112086, 0.000546736, 0.112086, 0.993698, -0.000638377, 2.09957, 0.0809259 )
 
@@ -67,8 +74,8 @@ shape = SubResource( 3 )
 collision_layer = 4
 collision_mask = 0
 script = ExtResource( 8 )
-_state_machine = NodePath("../StateMachine")
-_mob_health = NodePath("../Props/Health")
+state_machine = NodePath("../StateMachine")
+mob_health = NodePath("../Props/Health")
 
 [node name="CollisionShape" type="CollisionShape" parent="MobHurtbox"]
 transform = Transform( 0.524013, 0, 0, 0, 1.40761, 0, 0, 0, 0.422122, 0, 1.52013, 0 )
@@ -76,6 +83,7 @@ shape = SubResource( 4 )
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 3 )
+start_state = NodePath("Idle")
 casting = NodePath("Casting")
 spells = {
 [ 2 ]: NodePath("Casting/Boulder"),
